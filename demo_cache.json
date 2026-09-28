@@ -1,0 +1,428 @@
+{
+  "kavya covered rohans festivalday sunday shift last month she says he owes her two shifts back rohan says one whos right": {
+    "beat": "Beat 1: festival shift math",
+    "query": "Kavya covered Rohan's festival-day Sunday shift last month. She says he owes her two shifts back, Rohan says one. Who's right?",
+    "off": {
+      "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written documentation of the original swap agreement, specifically the agreed-upon return terms, to resolve the discrepancy between Kavya\u2019s claim of two shifts and Rohan\u2019s claim of one.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap terms is required.\n\n3. What to tell the employees\nPlease provide the written confirmation of the swap terms you agreed upon. I cannot adjudicate the shift count without that documentation.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nKavya is right. Rohan owes Kavya two shifts back. Rohan must work two shifts to repay Kavya. The return window for this swap closes tomorrow (2026-09-29). Since today is 2026-09-28, the window is still open and closes tomorrow. Rohan must complete the repayment by 2026-09-29.\n\n**Evidence**\n- Kavya covered Rohan\u2019s festival-day shift on 2026-08-30.\n- Priya ruled on 2026-07-20 that a festival-day swap counts as two regular shifts, a standing policy for all staff.\n- The swap was approved in the Shyft app on 2026-08-30 without specific return terms.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n- The 30-day window from 2026-08-30 ends on 2026-09-29.\n\n**What to tell the employees**\nRohan, you owe Kavya two shifts because festival-day covers count as two regular shifts per the standing policy. You must complete both repayments by tomorrow, 2026-09-29, to stay within the 30-day window.",
+      "memories": [
+        {
+          "text": "Kavya Reddy covered Rohan Shah's shift on a festival day. | When: 2026-08-30 | Involving: Kavya Reddy, Rohan Shah",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy. | Policy exception",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that a festival-day shift swap counts as two regular shifts, establishing this as a standing policy for all staff. | When: 2026-07-20 | Involving: Priya, Sana Khan, Rohan Shah | To resolve the dispute between Sana and Rohan.",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan and Rohan Shah had a dispute regarding the number of shifts Rohan owed Sana for covering his festival-day shift. | When: 2026-07-20 | Involving: Sana Khan, Rohan Shah | Sana covered Rohan's shift on a festival day.",
+          "type": "world"
+        },
+        {
+          "text": "Priya approved the shift swap in the Shyft app without specifying return terms. | When: 2026-08-30 | Involving: Priya (manager/approver), Kavya Reddy, Rohan Shah",
+          "type": "world"
+        },
+        {
+          "text": "Kavya Reddy covered Rohan Shah's shift on a festival day on August 30, 2026, with approval from Priya in the Shyft app; no specific return terms were set.",
+          "type": "observation"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval. | Involving: Priya (manager/approver)",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that the verbal shift swap between Arjun Rao and Sana Khan was not binding because it was not logged in the Shyft app. | When: 2026-06-14 | Involving: Priya, Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "observation"
+        },
+        {
+          "text": "Rohan Shah covered Arjun Rao's shift. | When: 2026-06-21 | Involving: Rohan Shah, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Priya mandated that all shift swaps must be posted in the Shyft app. | When: 2026-06-14 | Involving: Priya | To prevent future disputes over unlogged shift swaps.",
+          "type": "world"
+        },
+        {
+          "text": "Verbal-only shift swaps at Brewline Cafe are not binding unless confirmed by Priya Nair. | Involving: Priya Nair (manager) | Policy enforcement",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan covered Rohan Shah's shift, which was approved in the Shyft app. | When: 2026-07-19 | Involving: Sana Khan, Rohan Shah | Festival day",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao is required to cover one of Rohan Shah's shifts on a Sunday within 30 days. | When: Between 2026-06-21 and 2026-07-21 | Involving: Arjun Rao, Rohan Shah | Repayment for shift coverage",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "beat 1 festival shift math": {
+    "beat": "Beat 1: festival shift math",
+    "query": "Kavya covered Rohan's festival-day Sunday shift last month. She says he owes her two shifts back, Rohan says one. Who's right?",
+    "off": {
+      "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written documentation of the original swap agreement, specifically the agreed-upon return terms, to resolve the discrepancy between Kavya\u2019s claim of two shifts and Rohan\u2019s claim of one.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap terms is required.\n\n3. What to tell the employees\nPlease provide the written confirmation of the swap terms you agreed upon. I cannot adjudicate the shift count without that documentation.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nKavya is right. Rohan owes Kavya two shifts back. Rohan must work two shifts to repay Kavya. The return window for this swap closes tomorrow (2026-09-29). Since today is 2026-09-28, the window is still open and closes tomorrow. Rohan must complete the repayment by 2026-09-29.\n\n**Evidence**\n- Kavya covered Rohan\u2019s festival-day shift on 2026-08-30.\n- Priya ruled on 2026-07-20 that a festival-day swap counts as two regular shifts, a standing policy for all staff.\n- The swap was approved in the Shyft app on 2026-08-30 without specific return terms.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n- The 30-day window from 2026-08-30 ends on 2026-09-29.\n\n**What to tell the employees**\nRohan, you owe Kavya two shifts because festival-day covers count as two regular shifts per the standing policy. You must complete both repayments by tomorrow, 2026-09-29, to stay within the 30-day window.",
+      "memories": [
+        {
+          "text": "Kavya Reddy covered Rohan Shah's shift on a festival day. | When: 2026-08-30 | Involving: Kavya Reddy, Rohan Shah",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy. | Policy exception",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that a festival-day shift swap counts as two regular shifts, establishing this as a standing policy for all staff. | When: 2026-07-20 | Involving: Priya, Sana Khan, Rohan Shah | To resolve the dispute between Sana and Rohan.",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan and Rohan Shah had a dispute regarding the number of shifts Rohan owed Sana for covering his festival-day shift. | When: 2026-07-20 | Involving: Sana Khan, Rohan Shah | Sana covered Rohan's shift on a festival day.",
+          "type": "world"
+        },
+        {
+          "text": "Priya approved the shift swap in the Shyft app without specifying return terms. | When: 2026-08-30 | Involving: Priya (manager/approver), Kavya Reddy, Rohan Shah",
+          "type": "world"
+        },
+        {
+          "text": "Kavya Reddy covered Rohan Shah's shift on a festival day on August 30, 2026, with approval from Priya in the Shyft app; no specific return terms were set.",
+          "type": "observation"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval. | Involving: Priya (manager/approver)",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that the verbal shift swap between Arjun Rao and Sana Khan was not binding because it was not logged in the Shyft app. | When: 2026-06-14 | Involving: Priya, Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "observation"
+        },
+        {
+          "text": "Rohan Shah covered Arjun Rao's shift. | When: 2026-06-21 | Involving: Rohan Shah, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Priya mandated that all shift swaps must be posted in the Shyft app. | When: 2026-06-14 | Involving: Priya | To prevent future disputes over unlogged shift swaps.",
+          "type": "world"
+        },
+        {
+          "text": "Verbal-only shift swaps at Brewline Cafe are not binding unless confirmed by Priya Nair. | Involving: Priya Nair (manager) | Policy enforcement",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan covered Rohan Shah's shift, which was approved in the Shyft app. | When: 2026-07-19 | Involving: Sana Khan, Rohan Shah | Festival day",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao is required to cover one of Rohan Shah's shifts on a Sunday within 30 days. | When: Between 2026-06-21 and 2026-07-21 | Involving: Arjun Rao, Rohan Shah | Repayment for shift coverage",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "meera says arjun owes her saturdays for the two she covered in august arjun says the 30 days are up so he owes nothing whats the ruling": {
+    "beat": "Beat 2: expired swap window",
+    "query": "Meera says Arjun owes her Saturdays for the two she covered in August. Arjun says the 30 days are up so he owes nothing. What's the ruling?",
+    "off": {
+      "answer": "1. Recommendation\nI have no records of these August swaps or any prior rulings. I cannot decide who owes what. Priya must provide written documentation of the specific shifts covered, dates, and any prior agreements before a verdict can be issued.\n\n2. Evidence\n- No records available for Meera\u2019s or Arjun\u2019s August shift swaps.\n- No documentation exists regarding the 30-day return window or debt status.\n\n3. What to tell the employees\nI have no records of this swap. Please provide written confirmation of the covered shifts and dates so I can review the dispute properly.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nArjun Rao must work one Saturday shift for Meera Iyer to repay the August 8 cover, and one Saturday shift for the August 22 cover. Both returns are overdue. Per Priya\u2019s 2026-07-26 ruling, expired windows do not cancel debt. Arjun must complete both returns by October 5, 2026.\n\n**Evidence**\n- Meera covered Arjun\u2019s shifts on 2026-08-08 and 2026-08-22, both approved in the Shyft app.\n- Return windows ended 2026-09-07 and 2026-09-21; no returns logged.\n- Priya ruled on 2026-07-26 that expired windows do not cancel debt.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, debt upheld (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, the expired window does not erase your debt; work two Saturday shifts for Meera by October 5. Meera, your covers are valid and Arjun must return them.",
+      "memories": [
+        {
+          "text": "Meera Iyer covered Arjun Rao's evening shift on August 8, 2026, and again on August 22, 2026, both with approval from Priya in the Shyft app; Arjun Rao is required to return one Saturday shift to Meera Iyer within 30 days for each instance, but as of September 27, 2026, he has not logged any returns for these covers.",
+          "type": "observation"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy. | Policy exception",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that an expired window does not cancel the debt and ordered Arjun Rao to return the shift within 7 days. | When: 2026-07-26 | Involving: Priya, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao argued he owed nothing because the 30-day return window had expired. | When: 2026-07-26 | Involving: Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Meera Iyer covered Arjun Rao's evening shift. | When: 2026-08-08 | Involving: Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao is required to return one Saturday shift to Meera Iyer within 30 days. | When: 2026-08-22 to 2026-09-21 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval. | Involving: Priya (manager/approver)",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that the verbal shift swap between Arjun Rao and Sana Khan was not binding because it was not logged in the Shyft app. | When: 2026-06-14 | Involving: Priya, Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Priya approved the shift swap between Meera Iyer and Arjun Rao in the Shyft app. | When: 2026-08-08 | Involving: Priya, Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Priya approved the shift swap between Meera Iyer and Arjun Rao in the Shyft app. | When: 2026-08-22 | Involving: Priya, Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Meera Iyer covered Arjun Rao's evening shift for the second time. | When: 2026-08-22 | Involving: Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "observation"
+        },
+        {
+          "text": "Arjun Rao must return one Saturday shift within 30 days to Meera Iyer. | When: 2026-08-08 to 2026-09-07 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Verbal-only shift swaps at Brewline Cafe are not binding unless confirmed by Priya Nair. | Involving: Priya Nair (manager) | Policy enforcement",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "beat 2 expired swap window": {
+    "beat": "Beat 2: expired swap window",
+    "query": "Meera says Arjun owes her Saturdays for the two she covered in August. Arjun says the 30 days are up so he owes nothing. What's the ruling?",
+    "off": {
+      "answer": "1. Recommendation\nI have no records of these August swaps or any prior rulings. I cannot decide who owes what. Priya must provide written documentation of the specific shifts covered, dates, and any prior agreements before a verdict can be issued.\n\n2. Evidence\n- No records available for Meera\u2019s or Arjun\u2019s August shift swaps.\n- No documentation exists regarding the 30-day return window or debt status.\n\n3. What to tell the employees\nI have no records of this swap. Please provide written confirmation of the covered shifts and dates so I can review the dispute properly.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nArjun Rao must work one Saturday shift for Meera Iyer to repay the August 8 cover, and one Saturday shift for the August 22 cover. Both returns are overdue. Per Priya\u2019s 2026-07-26 ruling, expired windows do not cancel debt. Arjun must complete both returns by October 5, 2026.\n\n**Evidence**\n- Meera covered Arjun\u2019s shifts on 2026-08-08 and 2026-08-22, both approved in the Shyft app.\n- Return windows ended 2026-09-07 and 2026-09-21; no returns logged.\n- Priya ruled on 2026-07-26 that expired windows do not cancel debt.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, debt upheld (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, the expired window does not erase your debt; work two Saturday shifts for Meera by October 5. Meera, your covers are valid and Arjun must return them.",
+      "memories": [
+        {
+          "text": "Meera Iyer covered Arjun Rao's evening shift on August 8, 2026, and again on August 22, 2026, both with approval from Priya in the Shyft app; Arjun Rao is required to return one Saturday shift to Meera Iyer within 30 days for each instance, but as of September 27, 2026, he has not logged any returns for these covers.",
+          "type": "observation"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy. | Policy exception",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that an expired window does not cancel the debt and ordered Arjun Rao to return the shift within 7 days. | When: 2026-07-26 | Involving: Priya, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao argued he owed nothing because the 30-day return window had expired. | When: 2026-07-26 | Involving: Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Meera Iyer covered Arjun Rao's evening shift. | When: 2026-08-08 | Involving: Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao is required to return one Saturday shift to Meera Iyer within 30 days. | When: 2026-08-22 to 2026-09-21 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval. | Involving: Priya (manager/approver)",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that the verbal shift swap between Arjun Rao and Sana Khan was not binding because it was not logged in the Shyft app. | When: 2026-06-14 | Involving: Priya, Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Priya approved the shift swap between Meera Iyer and Arjun Rao in the Shyft app. | When: 2026-08-08 | Involving: Priya, Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Priya approved the shift swap between Meera Iyer and Arjun Rao in the Shyft app. | When: 2026-08-22 | Involving: Priya, Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Meera Iyer covered Arjun Rao's evening shift for the second time. | When: 2026-08-22 | Involving: Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "observation"
+        },
+        {
+          "text": "Arjun Rao must return one Saturday shift within 30 days to Meera Iyer. | When: 2026-08-08 to 2026-09-07 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Verbal-only shift swaps at Brewline Cafe are not binding unless confirmed by Priya Nair. | Involving: Priya Nair (manager) | Policy enforcement",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "arjuns back again he says sana promised to take his friday close next week but sana says she never agreed theres nothing in the app": {
+    "beat": "Beat 3: spot the pattern",
+    "query": "Arjun's back again. He says Sana promised to take his Friday close next week, but Sana says she never agreed. There's nothing in the app.",
+    "off": {
+      "answer": "**Recommendation**\nI have no record of this swap. I cannot decide who owes what. Priya must obtain written confirmation from both Arjun and Sana regarding the alleged verbal agreement before any shift changes are made.\n\n**Evidence**\n- No records are available for this dispute.\n- Documentation of the alleged verbal promise is currently missing.\n\n**What to tell the employees**\nPlease provide written confirmation of your agreement in the Shyft app. Until then, no shift changes will be processed.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nArjun works next week's Friday close. Sana does not work it. Arjun must log all future swaps in the Shyft app to obtain written confirmation.\n\n**Evidence**\n- Priya ruled the June 12 verbal swap non-binding because it was not logged in the Shyft app (2026-06-14).\n- Priya ruled an expired window does not cancel debt (2026-07-26).\n- Arjun\u2019s return to Meera Iyer was due 2026-09-07 and is overdue.\n- Arjun\u2019s return to Meera Iyer was due 2026-09-21 and is overdue.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, returned only after Priya's ruling (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, you must work next week's Friday close because the verbal agreement was not binding. You must log all future swaps in the Shyft app to ensure they are valid.",
+      "memories": [
+        {
+          "text": "Arjun Rao claimed Sana Khan verbally agreed to cover his Friday closing shift on June 12, 2026. | When: 2026-06-14 | Involving: Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy. | Policy exception",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that an expired window does not cancel the debt and ordered Arjun Rao to return the shift within 7 days. | When: 2026-07-26 | Involving: Priya, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao argued he owed nothing because the 30-day return window had expired. | When: 2026-07-26 | Involving: Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that a festival-day shift swap counts as two regular shifts, establishing this as a standing policy for all staff. | When: 2026-07-20 | Involving: Priya, Sana Khan, Rohan Shah | To resolve the dispute between Sana and Rohan.",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that the verbal shift swap between Arjun Rao and Sana Khan was not binding because it was not logged in the Shyft app. | When: 2026-06-14 | Involving: Priya, Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval. | Involving: Priya (manager/approver)",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao is required to return one Saturday shift to Meera Iyer within 30 days. | When: 2026-08-22 to 2026-09-21 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan covered Rohan Shah's shift, which was approved in the Shyft app. | When: 2026-07-19 | Involving: Sana Khan, Rohan Shah | Festival day",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan and Rohan Shah had a dispute regarding the number of shifts Rohan owed Sana for covering his festival-day shift. | When: 2026-07-20 | Involving: Sana Khan, Rohan Shah | Sana covered Rohan's shift on a festival day.",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "observation"
+        },
+        {
+          "text": "Priya approved the shift swap between Meera Iyer and Arjun Rao in the Shyft app. | When: 2026-08-08 | Involving: Priya, Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao must return one Saturday shift within 30 days to Meera Iyer. | When: 2026-08-08 to 2026-09-07 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan works as a part-time barista and requires written confirmation in the Shyft app for all shift swaps.",
+          "type": "observation"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "beat 3 spot the pattern": {
+    "beat": "Beat 3: spot the pattern",
+    "query": "Arjun's back again. He says Sana promised to take his Friday close next week, but Sana says she never agreed. There's nothing in the app.",
+    "off": {
+      "answer": "**Recommendation**\nI have no record of this swap. I cannot decide who owes what. Priya must obtain written confirmation from both Arjun and Sana regarding the alleged verbal agreement before any shift changes are made.\n\n**Evidence**\n- No records are available for this dispute.\n- Documentation of the alleged verbal promise is currently missing.\n\n**What to tell the employees**\nPlease provide written confirmation of your agreement in the Shyft app. Until then, no shift changes will be processed.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nArjun works next week's Friday close. Sana does not work it. Arjun must log all future swaps in the Shyft app to obtain written confirmation.\n\n**Evidence**\n- Priya ruled the June 12 verbal swap non-binding because it was not logged in the Shyft app (2026-06-14).\n- Priya ruled an expired window does not cancel debt (2026-07-26).\n- Arjun\u2019s return to Meera Iyer was due 2026-09-07 and is overdue.\n- Arjun\u2019s return to Meera Iyer was due 2026-09-21 and is overdue.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, returned only after Priya's ruling (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, you must work next week's Friday close because the verbal agreement was not binding. You must log all future swaps in the Shyft app to ensure they are valid.",
+      "memories": [
+        {
+          "text": "Arjun Rao claimed Sana Khan verbally agreed to cover his Friday closing shift on June 12, 2026. | When: 2026-06-14 | Involving: Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy. | Policy exception",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that an expired window does not cancel the debt and ordered Arjun Rao to return the shift within 7 days. | When: 2026-07-26 | Involving: Priya, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao argued he owed nothing because the 30-day return window had expired. | When: 2026-07-26 | Involving: Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that a festival-day shift swap counts as two regular shifts, establishing this as a standing policy for all staff. | When: 2026-07-20 | Involving: Priya, Sana Khan, Rohan Shah | To resolve the dispute between Sana and Rohan.",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that the verbal shift swap between Arjun Rao and Sana Khan was not binding because it was not logged in the Shyft app. | When: 2026-06-14 | Involving: Priya, Arjun Rao, Sana Khan",
+          "type": "world"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval. | Involving: Priya (manager/approver)",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao is required to return one Saturday shift to Meera Iyer within 30 days. | When: 2026-08-22 to 2026-09-21 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan covered Rohan Shah's shift, which was approved in the Shyft app. | When: 2026-07-19 | Involving: Sana Khan, Rohan Shah | Festival day",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan and Rohan Shah had a dispute regarding the number of shifts Rohan owed Sana for covering his festival-day shift. | When: 2026-07-20 | Involving: Sana Khan, Rohan Shah | Sana covered Rohan's shift on a festival day.",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "observation"
+        },
+        {
+          "text": "Priya approved the shift swap between Meera Iyer and Arjun Rao in the Shyft app. | When: 2026-08-08 | Involving: Priya, Meera Iyer, Arjun Rao",
+          "type": "world"
+        },
+        {
+          "text": "Arjun Rao must return one Saturday shift within 30 days to Meera Iyer. | When: 2026-08-08 to 2026-09-07 | Involving: Arjun Rao, Meera Iyer | Terms of the shift swap",
+          "type": "world"
+        },
+        {
+          "text": "Sana Khan works as a part-time barista and requires written confirmation in the Shyft app for all shift swaps.",
+          "type": "observation"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  }
+}

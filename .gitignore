@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+.bank_id
+eval_last_fix_cache.json
+scripts/eval_last_fix_cache.json
