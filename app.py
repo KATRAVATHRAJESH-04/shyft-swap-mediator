@@ -252,40 +252,19 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ---------------- demo scenarios (clean tabbed design) ----------------
+# ---------------- demo scenarios ----------------
 pending = None
-
-tab_core, tab_learning = st.tabs(["⚡ Core Disputes (Foundation Beats)", "🔄 Live Learning Demo (Unknown Case ➔ New Precedent)"])
-
-with tab_core:
-    st.caption("Click any dispute to compare vanilla LLM reasoning against Hindsight institutional memory:")
-    col1, col2, col3 = st.columns(3)
-    if col1.button("Beat 1: festival shift math", use_container_width=True):
-        pending = DEMO_PROMPTS["Beat 1: festival shift math"]
-        st.session_state.learning_step = 0
-    if col2.button("Beat 2: expired swap window", use_container_width=True):
-        pending = DEMO_PROMPTS["Beat 2: expired swap window"]
-        st.session_state.learning_step = 0
-    if col3.button("Beat 3: spot the pattern", use_container_width=True):
-        pending = DEMO_PROMPTS["Beat 3: spot the pattern"]
-        st.session_state.learning_step = 0
-
-with tab_learning:
-    st.caption("Walk through the full institutional learning loop: an unhandled case arrives, Priya creates policy, and future disputes reuse it (isolated in bank `brewline-live-demo`):")
-    c_s1, c_s2, c_s3 = st.columns([1, 1, 1])
-    with c_s1:
-        if st.button("Step 1: Test Unknown Case\n(Sana vs Rohan - 4hr cover)", use_container_width=True):
-            pending = BEAT_4_PROMPTS["Beat 4A: half-shift dispute"]
-            st.session_state.learning_step = 1
-    with c_s2:
-        st.markdown(
-            "<div style='text-align: center; padding-top: 10px;'><span style='font-size:0.83rem; color:#64748b;'><strong>Step 2:</strong> Manager Confirms Ruling Below ➔</span></div>",
-            unsafe_allow_html=True,
-        )
-    with c_s3:
-        if st.button("Step 3: Test New Case\n(Aisha vs Tariq - Precedent Applied)", use_container_width=True):
-            pending = BEAT_4_PROMPTS["Beat 4B: half-shift precedent"]
-            st.session_state.learning_step = 3
+st.caption("Click any dispute to compare vanilla LLM reasoning against Hindsight institutional memory:")
+col1, col2, col3 = st.columns(3)
+if col1.button("Beat 1: festival shift math", use_container_width=True):
+    pending = DEMO_PROMPTS["Beat 1: festival shift math"]
+    st.session_state.learning_step = 0
+if col2.button("Beat 2: expired swap window", use_container_width=True):
+    pending = DEMO_PROMPTS["Beat 2: expired swap window"]
+    st.session_state.learning_step = 0
+if col3.button("Beat 3: spot the pattern", use_container_width=True):
+    pending = DEMO_PROMPTS["Beat 3: spot the pattern"]
+    st.session_state.learning_step = 0
 
 # Manual input
 typed = st.chat_input("Describe a shift-swap dispute...")
