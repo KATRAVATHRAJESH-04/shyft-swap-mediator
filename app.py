@@ -14,7 +14,124 @@ import policy_engine
 import roster_sync
 
 load_dotenv()
-st.set_page_config(page_title="Shyft Swap Mediator", page_icon="🗓️", layout="wide")
+st.set_page_config(page_title="Shyft Swap Mediator", page_icon="☕", layout="wide")
+
+# Custom CSS for high-end, clean SaaS styling
+st.markdown(
+    """
+<style>
+    /* Global font & clean spacing */
+    .block-container {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        max-width: 1200px;
+    }
+    
+    /* Elegant header & subtitle */
+    .app-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: #f1f5f9;
+        color: #475569;
+        font-size: 0.78rem;
+        font-weight: 600;
+        padding: 3px 10px;
+        border-radius: 20px;
+        margin-bottom: 8px;
+        border: 1px solid #e2e8f0;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+    }
+    .app-title {
+        font-size: 2.1rem;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+    .app-tagline {
+        font-size: 1.05rem;
+        color: #334155;
+        font-weight: 500;
+        margin-bottom: 12px;
+        line-height: 1.4;
+    }
+    
+    /* Sleek minimalist pipeline flow */
+    .flow-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 6px 14px;
+        margin-bottom: 20px;
+        font-size: 0.78rem;
+        color: #64748b;
+    }
+    .flow-step {
+        font-weight: 600;
+        color: #334155;
+    }
+    .flow-arrow {
+        color: #cbd5e1;
+        font-size: 0.72rem;
+    }
+
+    /* Clean Card Containers */
+    .card-box {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 14px;
+    }
+
+    /* Status Pills */
+    .pill-green {
+        display: inline-flex;
+        align-items: center;
+        background: #f0fdf4;
+        color: #166534;
+        border: 1px solid #bbf7d0;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .pill-amber {
+        display: inline-flex;
+        align-items: center;
+        background: #fffbeb;
+        color: #92400e;
+        border: 1px solid #fde68a;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .pill-blue {
+        display: inline-flex;
+        align-items: center;
+        background: #eff6ff;
+        color: #1e40af;
+        border: 1px solid #bfdbfe;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+</style>
+""",
+    unsafe_allow_html=True,
+)
 
 # Initialize session state keys
 for key, default in [
@@ -64,8 +181,8 @@ def parse_verdict_sections(text: str) -> dict:
 
 # ---------------- sidebar ----------------
 with st.sidebar:
-    st.header("Controls")
-    st.caption(f"Demo date: {agent.get_demo_today_str()}")
+    st.markdown("### ⚙️ System Controls")
+    st.caption(f"Demo Calendar Date: **{agent.get_demo_today_str()}**")
     compare = st.toggle("Compare mode (memory OFF vs ON)", value=True)
 
     missing = [] if memory.is_mock() else [
@@ -84,88 +201,92 @@ with st.sidebar:
     st.caption("Click once per bank. Re-running adds duplicates.")
 
     st.divider()
-    st.header("🏛️ Institutional Memory")
+    st.markdown("### 🏛️ Institutional Memory")
     total_mem = 18 + st.session_state.saved
     st.metric(
-        "Knowledge Accumulation",
-        f"{total_mem} Records",
-        f"+{st.session_state.saved} live ruling(s)" if st.session_state.saved > 0 else "18 base records",
+        label="Accumulated Store Knowledge",
+        value=f"{total_mem} Records",
+        delta=f"+{st.session_state.saved} live ruling(s)" if st.session_state.saved > 0 else "Baseline",
     )
-    st.caption(f"Bank ID: `{memory.get_bank_id()}`")
+    st.caption(f"Memory Bank: `{memory.get_bank_id()}`")
+
+    with st.expander("📜 View Standing Policies (5 Core)", expanded=False):
+        for p in st.session_state.policy_registry.get_active_policies()[:5]:
+            st.markdown(f"**{p['name']}**: {p['rule']}")
+
+    if st.session_state.learned_precedents:
+        with st.expander(f"🟢 Learned Precedents ({len(st.session_state.learned_precedents)})", expanded=True):
+            for lp in st.session_state.learned_precedents:
+                st.markdown(f"- **{lp['when']}:** {lp['ruling'][:80]}...")
 
     st.divider()
-    st.header("Memories recalled")
+    st.markdown("### 🧠 Memories Recalled")
     memory_panel = st.container()
 
-# ---------------- main header & flow ----------------
-st.title("🗓️ Shyft Swap Mediator")
-st.markdown("#### Shyft remembers how your business resolves shift disputes — and gets more consistent with every decision.")
-st.caption("Brewline Café · Priya Nair, Shift Manager · Persistent Institutional Memory by Hindsight Cloud")
+# ---------------- main header ----------------
+st.markdown('<div class="app-badge">☕ Brewline Café · Shift Operations</div>', unsafe_allow_html=True)
+st.markdown('<div class="app-title">Shyft Swap Mediator</div>', unsafe_allow_html=True)
+st.markdown(
+    '<div class="app-tagline">Shyft remembers how your business resolves shift disputes — and gets more consistent with every decision.</div>',
+    unsafe_allow_html=True,
+)
 
-# Visual Workflow Pipeline Tracker
+# Minimalist workflow tracker
 st.markdown(
     """
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; font-size: 0.82rem; color: #334155;">
-  <span><strong>1. Dispute</strong></span> ➔ 
-  <span><strong>2. Recall Memory</strong></span> ➔ 
-  <span><strong>3. Evaluate Precedent</strong></span> ➔ 
-  <span><strong>4. Recommendation</strong></span> ➔ 
-  <span><strong>5. Manager Confirms</strong></span> ➔ 
-  <span><strong>6. Memory Accumulates</strong></span>
+<div class="flow-bar">
+  <span class="flow-step">1. Dispute</span>
+  <span class="flow-arrow">➔</span>
+  <span class="flow-step">2. Recall Memory</span>
+  <span class="flow-arrow">➔</span>
+  <span class="flow-step">3. Evaluate Precedent</span>
+  <span class="flow-arrow">➔</span>
+  <span class="flow-step">4. Recommendation</span>
+  <span class="flow-arrow">➔</span>
+  <span class="flow-step">5. Manager Confirms</span>
+  <span class="flow-arrow">➔</span>
+  <span class="flow-step">6. Memory Accumulates</span>
 </div>
 """,
     unsafe_allow_html=True,
 )
 
-# Visible Section: BREWLINE INSTITUTIONAL MEMORY & POLICY REGISTRY
-with st.expander(f"🏛️ BREWLINE INSTITUTIONAL MEMORY & POLICY REGISTRY ({total_mem} Records Active)", expanded=False):
-    col_mem1, col_mem2 = st.columns(2)
-    with col_mem1:
-        st.markdown("**CORE STANDING POLICIES (Versioned)**")
-        active_pols = st.session_state.policy_registry.get_active_policies()
-        for p in active_pols[:5]:
-            st.markdown(f"- **{p['id']} ({p['version']}) {p['name']}:** {p['rule']}")
-    with col_mem2:
-        st.markdown("**POLICY LIFECYCLE & LEARNED PRECEDENTS**")
-        all_pols = st.session_state.policy_registry.get_all_policies()
-        if len(all_pols) > 5:
-            for p in all_pols[5:]:
-                badge = "🟢 ACTIVE" if p['status'] == "ACTIVE" else "⚪ SUPERSEDED"
-                st.markdown(f"- **{p['id']} ({badge}):** {p['name']} ({p['effective_date']})")
-        elif st.session_state.learned_precedents:
-            for lp in st.session_state.learned_precedents:
-                st.markdown(f"- 🟢 **{lp['when']}:** {lp['ruling'][:90]}... *(Saved to Hindsight)*")
-        else:
-            st.caption("• *No live rulings added yet this session. Run the Live Learning Demo below to establish a new standing rule!*")
-        st.caption(f"Bank `{memory.get_bank_id()}` · Memory Versioning: Active · Auto-conflict resolution enabled")
-
-# ---------------- demo disputes & live learning ----------------
-st.markdown("### ⚡ Demo Disputes")
-
-# 1-click foundation beats
-cols = st.columns(len(DEMO_PROMPTS))
+# ---------------- demo scenarios (clean tabbed design) ----------------
 pending = None
-for col, (label, text) in zip(cols, DEMO_PROMPTS.items()):
-    if col.button(label, use_container_width=True):
-        pending = text
+
+tab_core, tab_learning = st.tabs(["⚡ Core Disputes (Foundation Beats)", "🔄 Live Learning Demo (Unknown Case ➔ New Precedent)"])
+
+with tab_core:
+    st.caption("Click any dispute to compare vanilla LLM reasoning against Hindsight institutional memory:")
+    col1, col2, col3 = st.columns(3)
+    if col1.button("Beat 1: festival shift math", use_container_width=True):
+        pending = DEMO_PROMPTS["Beat 1: festival shift math"]
+        st.session_state.learning_step = 0
+    if col2.button("Beat 2: expired swap window", use_container_width=True):
+        pending = DEMO_PROMPTS["Beat 2: expired swap window"]
+        st.session_state.learning_step = 0
+    if col3.button("Beat 3: spot the pattern", use_container_width=True):
+        pending = DEMO_PROMPTS["Beat 3: spot the pattern"]
         st.session_state.learning_step = 0
 
-# The Centerpiece: Live Learning Loop
-with st.container(border=True):
-    st.markdown("#### 🔄 Centerpiece Demo: The Live Learning Loop (Unknown Case → New Policy)")
-    st.caption("Watch Shyft handle an unprecedented dispute, prompt the manager for a ruling, commit it to Hindsight, and apply it to a new dispute with different employees.")
-    c_step1, c_step2, c_step3 = st.columns([1, 1, 1])
-    with c_step1:
-        if st.button("Step 1: Test Unknown Case\n(Sana vs Rohan - 4hr cover)", use_container_width=True, type="primary" if st.session_state.learning_step == 0 else "secondary"):
+with tab_learning:
+    st.caption("Walk through the full institutional learning loop: an unhandled case arrives, Priya creates policy, and future disputes reuse it:")
+    c_s1, c_s2, c_s3 = st.columns([1, 1, 1])
+    with c_s1:
+        if st.button("Step 1: Test Unknown Case\n(Sana vs Rohan - 4hr cover)", use_container_width=True):
             pending = BEAT_4_PROMPTS["Beat 4A: half-shift dispute"]
             st.session_state.learning_step = 1
-    with c_step2:
-        st.markdown("<div style='text-align: center; padding-top: 8px;'><span style='font-size:0.85rem; color:#64748b;'><strong>Step 2:</strong> Manager Confirms Ruling Below ➔</span></div>", unsafe_allow_html=True)
-    with c_step3:
-        if st.button("Step 3: Test New Case\n(Aisha vs Tariq - Precedent Applied)", use_container_width=True, type="primary" if st.session_state.learning_step >= 2 else "secondary"):
+    with c_s2:
+        st.markdown(
+            "<div style='text-align: center; padding-top: 10px;'><span style='font-size:0.83rem; color:#64748b;'><strong>Step 2:</strong> Manager Confirms Ruling Below ➔</span></div>",
+            unsafe_allow_html=True,
+        )
+    with c_s3:
+        if st.button("Step 3: Test New Case\n(Aisha vs Tariq - Precedent Applied)", use_container_width=True):
             pending = BEAT_4_PROMPTS["Beat 4B: half-shift precedent"]
             st.session_state.learning_step = 3
 
+# Manual input
 typed = st.chat_input("Describe a shift-swap dispute...")
 message = pending or typed
 
@@ -188,39 +309,36 @@ if st.session_state.error:
 last = st.session_state.last
 if last:
     with st.chat_message("user"):
-        st.write(last["message"])
+        st.markdown(f"**Dispute:** {last['message']}")
 
-    # Special callouts for the Live Learning Loop demo
     is_novel = ("half" in last["message"].lower() and "rohan" in last["message"].lower() and "sana" in last["message"].lower())
     is_reused = ("half" in last["message"].lower() and "tariq" in last["message"].lower() and "aisha" in last["message"].lower())
 
     if is_novel:
-        st.warning(
-            "🚨 **UNKNOWN CASE (STEP 1): No relevant precedent found in store records.**\n\n"
-            "Hindsight searched institutional memory and found no policy for partial-shift covers. "
-            "The agent refuses to invent a rule. **Manager decision required (Step 2)** below to establish policy."
+        st.markdown(
+            '<div class="pill-amber">⚠️ UNKNOWN CASE: No relevant precedent in store records · Manager decision required below to establish policy.</div>',
+            unsafe_allow_html=True,
         )
     elif is_reused:
-        st.success(
-            "🎯 **NEW PRECEDENT RECALLED (STEP 3): Hindsight retrieved Priya's ruling!**\n\n"
-            "Recalled precedent: *'Priya ruled that half-shift covers count as half a shift (pro-rated repayment of 4 hours)...'*\n\n"
-            "The agent applied this newly learned rule to Aisha & Tariq consistently, without model fine-tuning or code changes."
+        st.markdown(
+            '<div class="pill-green">🎯 PRECEDENT RECALLED: Hindsight retrieved Priya\'s half-shift ruling and applied it to Aisha & Tariq consistently!</div>',
+            unsafe_allow_html=True,
         )
 
     # Deterministic Timeline Verification Callout
     if "festival" in last["message"].lower() or "kavya" in last["message"].lower():
         win = agent.calculate_window_status("2026-08-30", window_days=30)
-        st.info(f"📅 **Deterministic Calendar Verification:** Cover Date: 2026-08-30 ➔ 30-Day Window Deadline: {win['end_date']} ➔ **Status: {win['status_str']}**")
+        st.caption(f"📅 **Deterministic Calendar Verification:** Cover Date: 2026-08-30 ➔ 30-Day Window Deadline: {win['end_date']} ➔ Status: **{win['status_str']}**")
     elif "august" in last["message"].lower() or "meera" in last["message"].lower():
         win1 = agent.calculate_window_status("2026-08-08", window_days=30)
         win2 = agent.calculate_window_status("2026-08-22", window_days=30)
-        st.info(f"📅 **Deterministic Calendar Verification:** Aug 8 cover ended {win1['end_date']} (EXPIRED); Aug 22 cover ended {win2['end_date']} (EXPIRED) ➔ Priya's 2026-07-26 ruling preserves shift debt.")
+        st.caption(f"📅 **Deterministic Calendar Verification:** Aug 8 cover ended {win1['end_date']} (EXPIRED); Aug 22 cover ended {win2['end_date']} (EXPIRED) ➔ Priya's 2026-07-26 precedent preserves debt.")
 
     if compare and last.get("off") is not None:
         left, right = st.columns(2)
         with left:
             st.subheader("Without memory")
-            st.error("⚠️ **Insufficient Historical Context** · Vanilla LLM has no store records")
+            st.markdown('<div class="pill-amber">❌ Insufficient Historical Context · Vanilla LLM</div>', unsafe_allow_html=True)
 
             parsed_off = parse_verdict_sections(last["off"]["answer"])
             if parsed_off["rec"] and parsed_off["evi"]:
@@ -249,9 +367,9 @@ if last:
 
             memories = last["on"].get("memories", [])
             if is_novel:
-                st.warning("🔍 **No Prior Precedent Found** · Manager decision required")
+                st.markdown('<div class="pill-amber">🔍 No Prior Precedent Found · Manager Decision Required</div>', unsafe_allow_html=True)
             else:
-                st.success(f"✅ **Historical Precedent Found** · {len(memories)} memories influenced this ruling")
+                st.markdown(f'<div class="pill-green">✅ Historical Precedent Found · {len(memories)} memories retrieved</div>', unsafe_allow_html=True)
 
             parsed_on = parse_verdict_sections(last["on"]["answer"])
             if parsed_on["rec"] and parsed_on["evi"]:
@@ -278,9 +396,9 @@ if last:
         st.subheader("With Hindsight memory")
         memories = last["on"].get("memories", [])
         if is_novel:
-            st.warning("🔍 **No Prior Precedent Found** · Manager decision required")
+            st.markdown('<div class="pill-amber">🔍 No Prior Precedent Found · Manager Decision Required</div>', unsafe_allow_html=True)
         else:
-            st.success(f"✅ **Historical Precedent Found** · {len(memories)} memories influenced this ruling")
+            st.markdown(f'<div class="pill-green">✅ Historical Precedent Found · {len(memories)} memories retrieved</div>', unsafe_allow_html=True)
 
         parsed_on = parse_verdict_sections(last["on"]["answer"])
         if parsed_on["rec"] and parsed_on["evi"]:
@@ -304,7 +422,7 @@ if last:
 
     st.divider()
     st.markdown("### ✍️ Priya's Final Ruling & Institutional Precedent Creation")
-    st.caption("Manager Confirmation Required: Priya Nair has final authority. Edit or confirm the ruling below. Once saved, it becomes permanent institutional memory for future disputes.")
+    st.caption("Priya Nair has final authority. Confirm or edit the ruling below. Once saved, it becomes permanent institutional memory for future disputes.")
 
     default_ruling = last["on"]["answer"]
     if is_novel:
@@ -313,7 +431,7 @@ if last:
             "establishing this as a standing policy for all staff."
         )
 
-    ruling = st.text_area("Edit or paste the ruling", value=default_ruling, height=120,
+    ruling = st.text_area("Edit or paste the ruling", value=default_ruling, height=110,
                           key=f"ruling_{hash(last['message'])}")
     
     is_blank = not ruling or not ruling.strip()
@@ -325,14 +443,14 @@ if last:
         compliance = guardrails.verify_compliance(ruling, last["message"])
         if compliance["compliant"]:
             st.markdown(
-                f"<div style='background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; padding:6px 12px; margin-bottom:10px; font-size:0.83rem; color:#166534;'>"
-                f"🛡️ <strong>Statutory Labor Standards & Fairness Check: PASSED (Score: {compliance['score']}/100)</strong><br>"
-                f"<span style='font-size:0.77rem; color:#15803d;'>Verified against Fair Work Standards: Rest period, definitive timeline, and non-punitive tone.</span>"
-                f"</div>",
+                f'<div class="pill-green">🛡️ Statutory Labor Standards & Fairness: PASSED ({compliance["score"]}/100) · Rest period, definitive timeline, & non-punitive tone verified.</div>',
                 unsafe_allow_html=True,
             )
         else:
-            st.warning(f"⚠️ Compliance Advisory: {compliance['summary']} (Score: {compliance['score']}/100)")
+            st.markdown(
+                f'<div class="pill-amber">⚠️ Compliance Advisory: {compliance["summary"]} ({compliance["score"]}/100)</div>',
+                unsafe_allow_html=True,
+            )
 
     if already_saved:
         st.success("Retained in Hindsight.")
@@ -341,17 +459,14 @@ if last:
         # Show Automated Roster Sync Status
         roster_evt = roster_sync.generate_roster_payload(last["message"], ruling)
         st.markdown(
-            f"<div style='background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:6px 12px; margin-bottom:10px; font-size:0.83rem; color:#1e40af;'>"
-            f"📡 <strong>Roster Synced to POS / Scheduling System (Event #{roster_evt['event_id']})</strong><br>"
-            f"<span style='font-size:0.77rem; color:#2563eb;'>Dispatched shift adjustment payload to 7shifts & Toast POS APIs.</span>"
-            f"</div>",
+            f'<div class="pill-blue">📡 Roster Synced to Scheduling API (Event #{roster_evt["event_id"]}) · Dispatched shift adjustment payload to 7shifts & Toast POS.</div>',
             unsafe_allow_html=True,
         )
-        with st.expander(f"🔍 View Roster Sync Payload for 7shifts & Toast POS (JSON)", expanded=False):
+        with st.expander(f"🔍 View Dispatch Payload for 7shifts & POS (JSON)", expanded=False):
             st.json(roster_evt)
 
         if is_novel or st.session_state.learning_step in (1, 2):
-            st.info("👉 **Step 2 Completed:** Precedent is now active in Hindsight! Now click **Step 3: Test New Case (Aisha vs Tariq)** above to watch Hindsight apply this rule.")
+            st.info("👉 **Step 2 Completed:** Precedent is active in Hindsight! Now click **Step 3: Test New Case (Aisha vs Tariq)** above to watch Hindsight apply this rule.")
     elif is_blank:
         st.caption("Enter a non-empty ruling to save.")
 
