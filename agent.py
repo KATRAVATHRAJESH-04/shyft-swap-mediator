@@ -32,6 +32,8 @@ def _jaccard_similarity(set_a: set[str], set_b: set[str]) -> float:
 
 
 def _get_cached_demo_response(message: str, use_memory: bool) -> dict | None:
+    if os.getenv("DISABLE_CACHE") == "1":
+        return None
     if not DEMO_CACHE_FILE.exists():
         return None
     try:
@@ -152,14 +154,14 @@ def _recall_queries(message: str) -> list[str]:
 RECALL_CAP = int(os.getenv("RECALL_CAP", "14"))
 
 
-def gather_memories(message: str, return_error: bool = False, cap: int | None = None):
+def gather_memories(message: str, return_error: bool = False, cap: int | None = None, bank_id: str | None = None):
     target_cap = cap or RECALL_CAP
     queries = _recall_queries(message)
     batches = []
     failed_count = 0
     for q in queries:
         try:
-            batches.append(memory.recall(q))
+            batches.append(memory.recall(q, bank_id=bank_id))
         except Exception as e:
             failed_count += 1
             print(f"[memory] recall query failed: '{q[:60]}...' ({e})")
@@ -208,6 +210,7 @@ def _chat(messages: list[dict], model: str | None = None) -> tuple[str, str]:
         candidate_models = [forced]
     else:
         candidate_models = MODELS
+
     last_err = None
 
     for cand in candidate_models:
@@ -244,7 +247,7 @@ def _chat(messages: list[dict], model: str | None = None) -> tuple[str, str]:
     raise RuntimeError(f"Groq call failed on all models: {last_err}")
 
 
-def respond(message: str, use_memory: bool = True, model: str | None = None) -> dict:
+def respond(message: str, use_memory: bool = True, model: str | None = None, bank_id: str | None = None) -> dict:
     """Returns {'answer': str, 'memories': list[dict], 'model': str, 'memory_error': bool, 'from_cache': bool}."""
     if not message or not message.strip():
         return {
@@ -255,14 +258,14 @@ def respond(message: str, use_memory: bool = True, model: str | None = None) -> 
             "from_cache": False,
         }
 
-    if os.getenv("DEMO_CACHE_ONLY") == "1":
+    if os.getenv("DEMO_CACHE_ONLY") == "1" and os.getenv("DISABLE_CACHE") != "1":
         cached = _get_cached_demo_response(message, use_memory)
         if cached:
             return cached
 
     memory_error = False
     if use_memory:
-        memories, all_failed = gather_memories(message, return_error=True)
+        memories, all_failed = gather_memories(message, return_error=True, bank_id=bank_id)
         if all_failed:
             memory_error = True
     else:
@@ -303,14 +306,14 @@ def respond(message: str, use_memory: bool = True, model: str | None = None) -> 
     return {"answer": answer, "memories": memories, "model": model_used, "memory_error": memory_error, "from_cache": False}
 
 
-def respond_compare(message: str) -> tuple[dict, dict]:
+def respond_compare(message: str, bank_id: str | None = None) -> tuple[dict, dict]:
     """Generates both memory-OFF and memory-ON answers using the EXACT SAME model.
     Picks the model once per compare run; if either call fails, retries the pair on the next model."""
     if not message or not message.strip():
-        empty = respond(message, use_memory=False)
+        empty = respond(message, use_memory=False, bank_id=bank_id)
         return empty, empty
 
-    if os.getenv("DEMO_CACHE_ONLY") == "1":
+    if os.getenv("DEMO_CACHE_ONLY") == "1" and os.getenv("DISABLE_CACHE") != "1":
         cached_off = _get_cached_demo_response(message, use_memory=False)
         cached_on = _get_cached_demo_response(message, use_memory=True)
         if cached_off and cached_on:
@@ -325,8 +328,8 @@ def respond_compare(message: str) -> tuple[dict, dict]:
         if time.time() < exhausted_until:
             continue
         try:
-            off = respond(message, use_memory=False, model=cand)
-            on = respond(message, use_memory=True, model=cand)
+            off = respond(message, use_memory=False, model=cand, bank_id=bank_id)
+            on = respond(message, use_memory=True, model=cand, bank_id=bank_id)
             return off, on
         except Exception as e:
             last_err = e
@@ -342,13 +345,14 @@ def respond_compare(message: str) -> tuple[dict, dict]:
     raise RuntimeError(f"Compare pair failed on all models: {last_err}")
 
 
-def record_ruling(message: str, ruling: str) -> None:
+def record_ruling(message: str, ruling: str, bank_id: str | None = None) -> None:
     """After Priya confirms a ruling, retain it so future disputes can build on it."""
     today = get_demo_today()
     memory.retain(
         f"Dispute on {today:%Y-%m-%d}: {message} Priya's ruling: {ruling}",
         context="dispute ruling",
         when=today,
+        bank_id=bank_id,
     )
 
 

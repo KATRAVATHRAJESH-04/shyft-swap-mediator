@@ -58,13 +58,14 @@ def _get_client():
     return _local.client
 
 
-def ensure_bank() -> None:
+def ensure_bank(bank_id: str | None = None) -> None:
     """Create the memory bank with its mission (harmless if it already exists)."""
     if is_mock():
         return
+    target_bank = bank_id or get_bank_id()
     try:
         _get_client().create_bank(
-            bank_id=get_bank_id(),
+            bank_id=target_bank,
             name="Brewline Swap Mediator",
             mission=BANK_MISSION,
             disposition={"skepticism": 4, "literalism": 4, "empathy": 3},
@@ -73,11 +74,11 @@ def ensure_bank() -> None:
         print(f"[memory] create_bank skipped: {e}")
 
 
-def retain(content: str, context: str | None = None, when: datetime | None = None) -> None:
+def retain(content: str, context: str | None = None, when: datetime | None = None, bank_id: str | None = None) -> None:
     if is_mock():
         _mock_store.append({"text": content, "type": "world"})
         return
-    kwargs = {"bank_id": get_bank_id(), "content": content, "retain_async": False}
+    kwargs = {"bank_id": bank_id or get_bank_id(), "content": content, "retain_async": False}
     if context:
         kwargs["context"] = context
     if when:
@@ -85,11 +86,12 @@ def retain(content: str, context: str | None = None, when: datetime | None = Non
     _get_client().retain(**kwargs)
 
 
-def recall(query: str, max_tokens: int = 1024) -> list[dict]:
+def recall(query: str, max_tokens: int = 1024, bank_id: str | None = None) -> list[dict]:
     """Return [{'text': ..., 'type': ...}] for the most relevant memories."""
     if is_mock():
         return _mock_recall(query)
-    res = _get_client().recall(bank_id=get_bank_id(), query=query, max_tokens=max_tokens, budget="mid")
+    target_bank = bank_id or get_bank_id()
+    res = _get_client().recall(bank_id=target_bank, query=query, max_tokens=max_tokens, budget="mid")
     return [{"text": r.text, "type": getattr(r, "type", None) or "memory"} for r in res.results]
 
 

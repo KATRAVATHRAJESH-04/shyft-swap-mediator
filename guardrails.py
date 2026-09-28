@@ -1,106 +1,53 @@
-"""guardrails.py - Statutory Labor Compliance & Fairness Verification.
+"""guardrails.py - Ruling consistency check.
 
-Validates shift mediator rulings against labor standards:
-1. Definitive Repayment Window: Swaps must have an explicit cure deadline (7-30 days), preventing indefinite shift debt.
-2. Pro-Rata Labor Fairness: Partial-shift covers are fairly pro-rated to protect employees from uncompensated hours.
-3. Audit Trail & App Logging: Verifies that rulings reinforce official Shyft app logging.
-4. Non-Punitive Adjudication: Ensures rulings are restorative rather than punitive (no wage docking, no retaliation).
+Performs internal consistency checks on proposed rulings:
+1. Deadline stated: verifies an explicit timeline or deadline is specified.
+2. Swap logged in the app: verifies the ruling reinforces logging swaps in the Shyft app.
+3. Neutral tone: verifies the language is professional, objective, and neutral.
+
+No legal or labor law claims are made.
 """
 
-import re
 
+def check_ruling_consistency(ruling: str, dispute: str = "") -> dict:
+    """Checks ruling text against Brewline store practice guidelines."""
+    ruling_lower = (ruling or "").lower()
 
-def verify_compliance(ruling: str, dispute: str = "") -> dict:
-    """Runs statutory compliance and fairness checks on a proposed ruling.
+    # 1. Deadline stated
+    deadline_terms = ["7 days", "30 days", "tomorrow", "deadline", "by ", "within", "window", "2026-"]
+    has_deadline = any(term in ruling_lower for term in deadline_terms)
     
-    Returns:
+    # 2. Swap logged in the app
+    app_terms = ["app", "shyft", "logged", "record", "written"]
+    has_app_mention = any(term in ruling_lower for term in app_terms)
+
+    # 3. Neutral tone
+    punitive_terms = ["fired", "terminate", "punish", "fine", "dock pay", "penalty"]
+    has_neutral_tone = not any(term in ruling_lower for term in punitive_terms)
+
+    checks = [
         {
-            'compliant': bool,
-            'score': int (0-100),
-            'checks': [
-                {'name': str, 'status': 'PASS' | 'WARN' | 'FAIL', 'detail': str}
-            ],
-            'summary': str
+            "name": "Deadline stated",
+            "passed": has_deadline,
+            "detail": "Clear timeline or return deadline included." if has_deadline else "No calendar deadline found."
+        },
+        {
+            "name": "Swap logged in the app",
+            "passed": has_app_mention,
+            "detail": "Emphasizes written logging in the Shyft app." if has_app_mention else "App logging not explicitly referenced."
+        },
+        {
+            "name": "Neutral tone",
+            "passed": has_neutral_tone,
+            "detail": "Tone is objective and constructive." if has_neutral_tone else "Hostile or punitive phrasing detected."
         }
-    """
-    checks = []
-    ruling_lower = ruling.lower()
-    dispute_lower = dispute.lower()
+    ]
 
-    # Check 1: Mandatory Repayment Window / Cure Period
-    has_deadline = any(term in ruling_lower for term in [
-        "7 days", "30 days", "tomorrow", "deadline", "2026-", "by ", "within", "window"
-    ])
-    if has_deadline:
-        checks.append({
-            "name": "Definitive Repayment Window",
-            "status": "PASS",
-            "detail": "Clear timeline or deadline specified; prevents indefinite debt."
-        })
-    else:
-        checks.append({
-            "name": "Definitive Repayment Window",
-            "status": "WARN",
-            "detail": "No explicit calendar deadline found; recommend specifying a 7-day or 30-day cure window."
-        })
-
-    # Check 2: Shift Pro-rating & Fairness
-    if "half" in dispute_lower or "4 hours" in dispute_lower or "partial" in dispute_lower:
-        if "half" in ruling_lower or "4 hours" in ruling_lower or "pro-rat" in ruling_lower or "pro-rata" in ruling_lower:
-            checks.append({
-                "name": "Pro-Rata Labor Fairness",
-                "status": "PASS",
-                "detail": "Partial-shift cover is fairly pro-rated (4 hours = 0.5 shift); complies with fair labor standards."
-            })
-        else:
-            checks.append({
-                "name": "Pro-Rata Labor Fairness",
-                "status": "WARN",
-                "detail": "Dispute mentions partial hours; verify whether full or pro-rated repayment is intended."
-            })
-    else:
-        checks.append({
-            "name": "Labor Proportionality",
-            "status": "PASS",
-            "detail": "Standard shift swap exchange conforms to 1:1 or 2:1 store precedent."
-        })
-
-    # Check 3: Mandatory Written Record Mandate
-    if any(k in ruling_lower for k in ["app", "logged", "record", "shyft", "written"]):
-        checks.append({
-            "name": "Audit Trail & App Logging",
-            "status": "PASS",
-            "detail": "Reinforces store policy requiring all swaps logged in the Shyft app."
-        })
-    else:
-        checks.append({
-            "name": "Audit Trail & App Logging",
-            "status": "PASS",
-            "detail": "Roster records retained for HR compliance."
-        })
-
-    # Check 4: Neutral & Non-Punitive Tone
-    punitive_terms = ["fired", "terminate", "punish", "fine", "dock pay", "penalty", "disciplinary"]
-    if any(pt in ruling_lower for pt in punitive_terms):
-        checks.append({
-            "name": "Non-Punitive Adjudication",
-            "status": "FAIL",
-            "detail": "Punitive wage docking or termination threats detected. Violates fair workplace standards."
-        })
-    else:
-        checks.append({
-            "name": "Non-Punitive Adjudication",
-            "status": "PASS",
-            "detail": "Ruling is restorative and policy-grounded rather than punitive."
-        })
-
-    is_compliant = not any(c["status"] == "FAIL" for c in checks)
-    pass_count = sum(1 for c in checks if c["status"] == "PASS")
-    score = int((pass_count / len(checks)) * 100)
-
+    all_passed = all(c["passed"] for c in checks)
     return {
-        "compliant": is_compliant,
-        "score": score,
+        "all_passed": all_passed,
         "checks": checks,
-        "summary": "Statutory & Store Labor Compliance Verified (FLSA / Rest Standards)" if is_compliant else "Compliance Warning Detected"
+        "summary": "Ruling consistency check passed" if all_passed else "Notice: review check items"
     }
+
+

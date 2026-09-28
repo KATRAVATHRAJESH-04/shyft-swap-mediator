@@ -5,7 +5,9 @@
     "off": {
       "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written documentation of the original swap agreement, specifically the agreed-upon return terms, to resolve the discrepancy between Kavya\u2019s claim of two shifts and Rohan\u2019s claim of one.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap terms is required.\n\n3. What to tell the employees\nPlease provide the written confirmation of the swap terms you agreed upon. I cannot adjudicate the shift count without that documentation.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nKavya is right. Rohan owes Kavya two shifts back. Rohan must work two shifts to repay Kavya. The return window for this swap closes tomorrow (2026-09-29). Since today is 2026-09-28, the window is still open and closes tomorrow. Rohan must complete the repayment by 2026-09-29.\n\n**Evidence**\n- Kavya covered Rohan\u2019s festival-day shift on 2026-08-30.\n- Priya ruled on 2026-07-20 that a festival-day swap counts as two regular shifts, a standing policy for all staff.\n- The swap was approved in the Shyft app on 2026-08-30 without specific return terms.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n- The 30-day window from 2026-08-30 ends on 2026-09-29.\n\n**What to tell the employees**\nRohan, you owe Kavya two shifts because festival-day covers count as two regular shifts per the standing policy. You must complete both repayments by tomorrow, 2026-09-29, to stay within the 30-day window.",
@@ -67,8 +69,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-demo-2",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "beat 1 festival shift math": {
     "beat": "Beat 1: festival shift math",
@@ -76,7 +82,9 @@
     "off": {
       "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written documentation of the original swap agreement, specifically the agreed-upon return terms, to resolve the discrepancy between Kavya\u2019s claim of two shifts and Rohan\u2019s claim of one.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap terms is required.\n\n3. What to tell the employees\nPlease provide the written confirmation of the swap terms you agreed upon. I cannot adjudicate the shift count without that documentation.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nKavya is right. Rohan owes Kavya two shifts back. Rohan must work two shifts to repay Kavya. The return window for this swap closes tomorrow (2026-09-29). Since today is 2026-09-28, the window is still open and closes tomorrow. Rohan must complete the repayment by 2026-09-29.\n\n**Evidence**\n- Kavya covered Rohan\u2019s festival-day shift on 2026-08-30.\n- Priya ruled on 2026-07-20 that a festival-day swap counts as two regular shifts, a standing policy for all staff.\n- The swap was approved in the Shyft app on 2026-08-30 without specific return terms.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n- The 30-day window from 2026-08-30 ends on 2026-09-29.\n\n**What to tell the employees**\nRohan, you owe Kavya two shifts because festival-day covers count as two regular shifts per the standing policy. You must complete both repayments by tomorrow, 2026-09-29, to stay within the 30-day window.",
@@ -138,8 +146,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-demo-2",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "meera says arjun owes her saturdays for the two she covered in august arjun says the 30 days are up so he owes nothing whats the ruling": {
     "beat": "Beat 2: expired swap window",
@@ -147,7 +159,9 @@
     "off": {
       "answer": "1. Recommendation\nI have no records of these August swaps or any prior rulings. I cannot decide who owes what. Priya must provide written documentation of the specific shifts covered, dates, and any prior agreements before a verdict can be issued.\n\n2. Evidence\n- No records available for Meera\u2019s or Arjun\u2019s August shift swaps.\n- No documentation exists regarding the 30-day return window or debt status.\n\n3. What to tell the employees\nI have no records of this swap. Please provide written confirmation of the covered shifts and dates so I can review the dispute properly.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nArjun Rao must work one Saturday shift for Meera Iyer to repay the August 8 cover, and one Saturday shift for the August 22 cover. Both returns are overdue. Per Priya\u2019s 2026-07-26 ruling, expired windows do not cancel debt. Arjun must complete both returns by October 5, 2026.\n\n**Evidence**\n- Meera covered Arjun\u2019s shifts on 2026-08-08 and 2026-08-22, both approved in the Shyft app.\n- Return windows ended 2026-09-07 and 2026-09-21; no returns logged.\n- Priya ruled on 2026-07-26 that expired windows do not cancel debt.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, debt upheld (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, the expired window does not erase your debt; work two Saturday shifts for Meera by October 5. Meera, your covers are valid and Arjun must return them.",
@@ -209,8 +223,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-demo-2",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "beat 2 expired swap window": {
     "beat": "Beat 2: expired swap window",
@@ -218,7 +236,9 @@
     "off": {
       "answer": "1. Recommendation\nI have no records of these August swaps or any prior rulings. I cannot decide who owes what. Priya must provide written documentation of the specific shifts covered, dates, and any prior agreements before a verdict can be issued.\n\n2. Evidence\n- No records available for Meera\u2019s or Arjun\u2019s August shift swaps.\n- No documentation exists regarding the 30-day return window or debt status.\n\n3. What to tell the employees\nI have no records of this swap. Please provide written confirmation of the covered shifts and dates so I can review the dispute properly.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nArjun Rao must work one Saturday shift for Meera Iyer to repay the August 8 cover, and one Saturday shift for the August 22 cover. Both returns are overdue. Per Priya\u2019s 2026-07-26 ruling, expired windows do not cancel debt. Arjun must complete both returns by October 5, 2026.\n\n**Evidence**\n- Meera covered Arjun\u2019s shifts on 2026-08-08 and 2026-08-22, both approved in the Shyft app.\n- Return windows ended 2026-09-07 and 2026-09-21; no returns logged.\n- Priya ruled on 2026-07-26 that expired windows do not cancel debt.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, debt upheld (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, the expired window does not erase your debt; work two Saturday shifts for Meera by October 5. Meera, your covers are valid and Arjun must return them.",
@@ -280,8 +300,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-demo-2",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "arjuns back again he says sana promised to take his friday close next week but sana says she never agreed theres nothing in the app": {
     "beat": "Beat 3: spot the pattern",
@@ -289,7 +313,9 @@
     "off": {
       "answer": "**Recommendation**\nI have no record of this swap. I cannot decide who owes what. Priya must obtain written confirmation from both Arjun and Sana regarding the alleged verbal agreement before any shift changes are made.\n\n**Evidence**\n- No records are available for this dispute.\n- Documentation of the alleged verbal promise is currently missing.\n\n**What to tell the employees**\nPlease provide written confirmation of your agreement in the Shyft app. Until then, no shift changes will be processed.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nArjun works next week's Friday close. Sana does not work it. Arjun must log all future swaps in the Shyft app to obtain written confirmation.\n\n**Evidence**\n- Priya ruled the June 12 verbal swap non-binding because it was not logged in the Shyft app (2026-06-14).\n- Priya ruled an expired window does not cancel debt (2026-07-26).\n- Arjun\u2019s return to Meera Iyer was due 2026-09-07 and is overdue.\n- Arjun\u2019s return to Meera Iyer was due 2026-09-21 and is overdue.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, returned only after Priya's ruling (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, you must work next week's Friday close because the verbal agreement was not binding. You must log all future swaps in the Shyft app to ensure they are valid.",
@@ -351,8 +377,12 @@
           "type": "observation"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-demo-2",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "beat 3 spot the pattern": {
     "beat": "Beat 3: spot the pattern",
@@ -360,7 +390,9 @@
     "off": {
       "answer": "**Recommendation**\nI have no record of this swap. I cannot decide who owes what. Priya must obtain written confirmation from both Arjun and Sana regarding the alleged verbal agreement before any shift changes are made.\n\n**Evidence**\n- No records are available for this dispute.\n- Documentation of the alleged verbal promise is currently missing.\n\n**What to tell the employees**\nPlease provide written confirmation of your agreement in the Shyft app. Until then, no shift changes will be processed.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nArjun works next week's Friday close. Sana does not work it. Arjun must log all future swaps in the Shyft app to obtain written confirmation.\n\n**Evidence**\n- Priya ruled the June 12 verbal swap non-binding because it was not logged in the Shyft app (2026-06-14).\n- Priya ruled an expired window does not cancel debt (2026-07-26).\n- Arjun\u2019s return to Meera Iyer was due 2026-09-07 and is overdue.\n- Arjun\u2019s return to Meera Iyer was due 2026-09-21 and is overdue.\n- Pattern: Arjun - verbal claim ruled non-binding (2026-06-14); expired window, returned only after Priya's ruling (2026-07-26); two August covers overdue since 2026-09-07 and 2026-09-21.\n\n**What to tell the employees**\nArjun, you must work next week's Friday close because the verbal agreement was not binding. You must log all future swaps in the Shyft app to ensure they are valid.",
@@ -422,8 +454,12 @@
           "type": "observation"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-demo-2",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-demo-2",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "sana covered 4 hours of rohans 8hour shift yesterday sana says rohan owes her a full shift back because she gave up her evening rohan says he only owes 4 hours or half a shift whats the policy": {
     "beat": "Beat 4A: half-shift dispute",
@@ -431,7 +467,9 @@
     "off": {
       "answer": "1. Recommendation\nI cannot determine what the policy is. Priya must check the store handbook or issue a policy ruling regarding partial-shift coverage.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of partial shift policy is required.\n\n3. What to tell the employees\nPlease wait until Priya establishes the policy for partial-shift covers. I cannot determine who is right without documented rules.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nI have no record of a policy or precedent for partial-shift covers. Priya must decide whether covering 4 hours of an 8-hour shift requires returning a full shift or half a shift.\n\n**Evidence**\n- Standing policy requires covered shifts to be returned within 30 days of the cover date.\n- Festival-day covers count as two regular shifts, but no policy exists for half-shift covers.\n- No prior disputes or rulings on record address partial-shift coverage.\n\n**What to tell the employees**\nThere is currently no established policy for half-shift covers in the store records. Manager Priya will review the dispute and issue a formal ruling.",
@@ -449,8 +487,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-live-demo",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "beat 4a halfshift dispute": {
     "beat": "Beat 4A: half-shift dispute",
@@ -458,7 +500,9 @@
     "off": {
       "answer": "1. Recommendation\nI cannot determine what the policy is. Priya must check the store handbook or issue a policy ruling regarding partial-shift coverage.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of partial shift policy is required.\n\n3. What to tell the employees\nPlease wait until Priya establishes the policy for partial-shift covers. I cannot determine who is right without documented rules.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nI have no record of a policy or precedent for partial-shift covers. Priya must decide whether covering 4 hours of an 8-hour shift requires returning a full shift or half a shift.\n\n**Evidence**\n- Standing policy requires covered shifts to be returned within 30 days of the cover date.\n- Festival-day covers count as two regular shifts, but no policy exists for half-shift covers.\n- No prior disputes or rulings on record address partial-shift coverage.\n\n**What to tell the employees**\nThere is currently no established policy for half-shift covers in the store records. Manager Priya will review the dispute and issue a formal ruling.",
@@ -476,8 +520,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-live-demo",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "aisha covered 4 hours of tariqs shift on thursday aisha says tariq owes her a full shift back but tariq says he only owes half a shift whats the ruling": {
     "beat": "Beat 4B: half-shift precedent",
@@ -485,7 +533,9 @@
     "off": {
       "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written confirmation of the shift swap terms agreed upon by Aisha and Tariq.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap agreement is required.\n\n3. What to tell the employees\nPlease provide written documentation of what you agreed upon for this cover. Without it, I cannot rule on shift repayment.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nTariq is right. Tariq owes Aisha half a shift (4 hours of shift coverage). Tariq must work a half shift to repay Aisha.\n\n**Evidence**\n- Priya ruled on 2026-09-28 that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.\n- Aisha covered 4 hours of Tariq's shift.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n\n**What to tell the employees**\nTariq, you owe Aisha half a shift (4 hours) back, in accordance with Priya's standing policy that partial-shift covers are repaid pro-rata.",
@@ -499,8 +549,12 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-live-demo",
+    "timestamp": "2026-09-28T22:30:00Z"
   },
   "beat 4b halfshift precedent": {
     "beat": "Beat 4B: half-shift precedent",
@@ -508,7 +562,9 @@
     "off": {
       "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written confirmation of the shift swap terms agreed upon by Aisha and Tariq.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap agreement is required.\n\n3. What to tell the employees\nPlease provide written documentation of what you agreed upon for this cover. Without it, I cannot rule on shift repayment.",
       "memories": [],
-      "model": "qwen/qwen3.8-27b"
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
     },
     "on": {
       "answer": "**Recommendation**\nTariq is right. Tariq owes Aisha half a shift (4 hours of shift coverage). Tariq must work a half shift to repay Aisha.\n\n**Evidence**\n- Priya ruled on 2026-09-28 that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.\n- Aisha covered 4 hours of Tariq's shift.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n\n**What to tell the employees**\nTariq, you owe Aisha half a shift (4 hours) back, in accordance with Priya's standing policy that partial-shift covers are repaid pro-rata.",
@@ -522,7 +578,11 @@
           "type": "world"
         }
       ],
-      "model": "qwen/qwen3.8-27b"
-    }
+      "model": "qwen/qwen3.8-27b",
+      "bank_id": "brewline-live-demo",
+      "timestamp": "2026-09-28T22:30:00Z"
+    },
+    "bank_id": "brewline-live-demo",
+    "timestamp": "2026-09-28T22:30:00Z"
   }
 }

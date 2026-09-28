@@ -1,9 +1,19 @@
-"""policy_engine.py - Institutional Policy Lifecycle, Versioning & Conflict Resolution.
+"""policy_engine.py - Policy index derived from seed records.
 
-Solves the append-only memory drawback:
-- Tracks active vs superseded policies.
-- Automatically detects if a new manager ruling supersedes an older rule.
-- Maintains version history (e.g. Policy v1.0 -> v1.1).
+NOTE: The LLM does NOT query this registry. The LLM's knowledge and citations
+come 100% from Hindsight Cloud memory recall. This registry is solely an
+operational UI display derived directly from historical seed records in seed_data.py:
+
+- POL-001 (App Logging Requirement):
+  Derived from seed_data.py 2026-06-01 policy & 2026-06-14 ruling ("verbal swaps non-binding").
+- POL-002 (Festival-Day Multiplier):
+  Derived from seed_data.py 2026-07-20 dispute ruling (festival shift = 2 regular shifts).
+- POL-003 (Debt Preservation & Window Expiration):
+  Derived from seed_data.py 2026-07-26 dispute ruling (expired windows do not cancel debt).
+- POL-004 (Default 30-Day Window):
+  Derived from seed_data.py 2026-06-01 policy (covered shifts must be returned within 30 days).
+- POL-005 (Emergency Exemption):
+  Derived from seed_data.py 2026-06-01 policy (genuine emergencies are the only exception).
 """
 
 from typing import Any
@@ -11,6 +21,7 @@ from typing import Any
 
 class PolicyRegistry:
     def __init__(self):
+        self.source = "Policy index derived from seed records"
         self.policies = [
             {
                 "id": "POL-001",
@@ -20,7 +31,7 @@ class PolicyRegistry:
                 "effective_date": "2026-06-14",
                 "version": "1.0",
                 "status": "ACTIVE",
-                "category": "Documentation",
+                "derived_from": "seed_data.py (2026-06-01 & 2026-06-14)",
             },
             {
                 "id": "POL-002",
@@ -30,7 +41,7 @@ class PolicyRegistry:
                 "effective_date": "2026-07-20",
                 "version": "1.0",
                 "status": "ACTIVE",
-                "category": "Shift Accounting",
+                "derived_from": "seed_data.py (2026-07-20)",
             },
             {
                 "id": "POL-003",
@@ -40,7 +51,7 @@ class PolicyRegistry:
                 "effective_date": "2026-07-26",
                 "version": "1.0",
                 "status": "ACTIVE",
-                "category": "Debt Enforcement",
+                "derived_from": "seed_data.py (2026-07-26)",
             },
             {
                 "id": "POL-004",
@@ -50,7 +61,7 @@ class PolicyRegistry:
                 "effective_date": "2026-06-01",
                 "version": "1.0",
                 "status": "ACTIVE",
-                "category": "Timeline",
+                "derived_from": "seed_data.py (2026-06-01)",
             },
             {
                 "id": "POL-005",
@@ -60,7 +71,7 @@ class PolicyRegistry:
                 "effective_date": "2026-06-01",
                 "version": "1.0",
                 "status": "ACTIVE",
-                "category": "Exceptions",
+                "derived_from": "seed_data.py (2026-06-01)",
             },
         ]
 
@@ -71,10 +82,9 @@ class PolicyRegistry:
         return self.policies
 
     def register_or_supersede(self, ruling: str, dispute: str, when: str = "2026-09-28") -> dict:
-        """Detects whether this ruling establishes a new rule or supersedes an older one."""
+        """Tracks dynamically added manager rulings into the index."""
         ruling_lower = ruling.lower()
 
-        # Check if this is a half-shift policy
         if "half" in ruling_lower or "4 hours" in ruling_lower:
             existing = next((p for p in self.policies if "half-shift" in p["name"].lower() or "partial" in p["name"].lower()), None)
             if existing:
@@ -92,12 +102,11 @@ class PolicyRegistry:
                 "effective_date": when,
                 "version": new_v,
                 "status": "ACTIVE",
-                "category": "Shift Accounting",
+                "derived_from": "Live Manager Ruling in Hindsight",
             }
             self.policies.append(new_pol)
             return {"action": "ESTABLISHED", "policy": new_pol, "is_superseding": existing is not None}
 
-        # General ruling registration
         new_pol = {
             "id": f"POL-{len(self.policies)+1:03d}",
             "name": f"Manager Ruling ({when})",
@@ -106,7 +115,7 @@ class PolicyRegistry:
             "effective_date": when,
             "version": "1.0",
             "status": "ACTIVE",
-            "category": "Precedent",
+            "derived_from": "Live Manager Ruling in Hindsight",
         }
         self.policies.append(new_pol)
         return {"action": "RECORDED", "policy": new_pol, "is_superseding": False}

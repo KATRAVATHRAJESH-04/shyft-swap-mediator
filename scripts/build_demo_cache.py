@@ -168,14 +168,15 @@ def build_cache() -> None:
     if norm_4b not in cache or "off" not in cache[norm_4b] or "on" not in cache[norm_4b]:
         print("  Processing Beat 4B (applying learned precedent in isolated bank)...")
         orig_bank = os.environ.get("HINDSIGHT_BANK_ID", "brewline-demo-2")
-        os.environ["HINDSIGHT_BANK_ID"] = "learning-test"
+        os.environ["HINDSIGHT_BANK_ID"] = "brewline-live-demo"
         try:
-            memory.ensure_bank()
+            memory.ensure_bank(bank_id="brewline-live-demo")
             # Retain Priya's confirmed ruling into isolated test bank
             memory.retain(
                 f"Dispute on 2026-09-28: {p4a} Priya's ruling: {BEAT_4_RULING}",
                 context="dispute ruling",
                 when="2026-09-28",
+                bank_id="brewline-live-demo",
             )
             time.sleep(1)
             off_4b, on_4b = safe_respond_compare(p4b)

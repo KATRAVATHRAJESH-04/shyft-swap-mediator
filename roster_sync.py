@@ -1,7 +1,8 @@
-"""roster_sync.py - Bidirectional Scheduling & POS Integration (7shifts, Deputy, Toast POS).
+"""roster_sync.py - Simulated roster payload generator.
 
-Solves the 'standalone dashboard' drawback by generating and dispatching structured
-roster adjustment events that scheduling systems consume.
+Generates a simulated payload for IT inspection, showing what an operational
+event schema would look like if exported to an external scheduling system.
+No external systems are contacted.
 """
 
 from datetime import datetime
@@ -9,7 +10,7 @@ import uuid
 
 
 def generate_roster_payload(dispute: str, ruling: str, store_id: str = "brewline-01") -> dict:
-    """Generates a standardized scheduling roster update payload."""
+    """Generates a simulated scheduling roster payload."""
     event_id = f"evt_{uuid.uuid4().hex[:10]}"
     today_str = datetime.now().strftime("%Y-%m-%d")
 
@@ -44,13 +45,13 @@ def generate_roster_payload(dispute: str, ruling: str, store_id: str = "brewline
                 "action_type": "CREDIT_DEBIT_BALANCE",
                 "shift_units": shift_count,
                 "source": "Hindsight Memory Precedent",
-                "sync_targets": ["7shifts", "Toast POS", "Deputy"],
-                "status": "SYNCED"
+                "example_targets": ["scheduling system", "point of sale"],
+                "status": "SIMULATED"
             }
         ],
         "audit": {
             "precedent_grounded": True,
-            "statutory_compliance": "PASSED"
+            "consistency_checked": True
         }
     }
     return payload

@@ -208,11 +208,12 @@ with st.sidebar:
         value=f"{total_mem} Records",
         delta=f"+{st.session_state.saved} live ruling(s)" if st.session_state.saved > 0 else "Baseline",
     )
-    st.caption(f"Memory Bank: `{memory.get_bank_id()}`")
+    st.caption(f"Default Bank: `{memory.get_bank_id()}`")
 
-    with st.expander("📜 View Standing Policies (5 Core)", expanded=False):
+    with st.expander("📜 Policy index derived from seed records", expanded=False):
+        st.caption("Derived from seed records in seed_data.py. The LLM's facts and rulings come 100% from Hindsight recall, NOT from this index.")
         for p in st.session_state.policy_registry.get_active_policies()[:5]:
-            st.markdown(f"**{p['name']}**: {p['rule']}")
+            st.markdown(f"**{p['name']}**: {p['rule']} *(derived from {p.get('derived_from', 'seed records')})*")
 
     if st.session_state.learned_precedents:
         with st.expander(f"🟢 Learned Precedents ({len(st.session_state.learned_precedents)})", expanded=True):
@@ -270,7 +271,7 @@ with tab_core:
         st.session_state.learning_step = 0
 
 with tab_learning:
-    st.caption("Walk through the full institutional learning loop: an unhandled case arrives, Priya creates policy, and future disputes reuse it:")
+    st.caption("Walk through the full institutional learning loop: an unhandled case arrives, Priya creates policy, and future disputes reuse it (isolated in bank `brewline-live-demo`):")
     c_s1, c_s2, c_s3 = st.columns([1, 1, 1])
     with c_s1:
         if st.button("Step 1: Test Unknown Case\n(Sana vs Rohan - 4hr cover)", use_container_width=True):
@@ -292,14 +293,20 @@ message = pending or typed
 
 if message:
     st.session_state.error = None
+    # Route bank: Beat 4 uses isolated bank 'brewline-live-demo'; Beats 1-3 use 'brewline-demo-2'
+    is_beat4_flow = (st.session_state.learning_step in (1, 2, 3)) or ("half" in message.lower() and "4 hours" in message.lower())
+    active_bank = "brewline-live-demo" if is_beat4_flow else memory.get_bank_id()
+
     try:
         with st.spinner("Retrieving institutional memory & evaluating..."):
+            if is_beat4_flow:
+                memory.ensure_bank(bank_id="brewline-live-demo")
             if compare:
-                off, on = agent.respond_compare(message)
+                off, on = agent.respond_compare(message, bank_id=active_bank)
             else:
                 off = None
-                on = agent.respond(message, use_memory=True)
-        st.session_state.last = {"message": message, "off": off, "on": on}
+                on = agent.respond(message, use_memory=True, bank_id=active_bank)
+        st.session_state.last = {"message": message, "off": off, "on": on, "bank_id": active_bank}
     except Exception as e:
         st.session_state.error = str(e)
 
@@ -438,31 +445,27 @@ if last:
     already_saved = (st.session_state.saved_dispute == last["message"])
     save_disabled = already_saved or is_blank
 
-    # Real-time Statutory Labor Law & Fairness Check
+    # Ruling consistency check (tick list)
     if not is_blank:
-        compliance = guardrails.verify_compliance(ruling, last["message"])
-        if compliance["compliant"]:
-            st.markdown(
-                f'<div class="pill-green">🛡️ Statutory Labor Standards & Fairness: PASSED ({compliance["score"]}/100) · Rest period, definitive timeline, & non-punitive tone verified.</div>',
-                unsafe_allow_html=True,
-            )
-        else:
-            st.markdown(
-                f'<div class="pill-amber">⚠️ Compliance Advisory: {compliance["summary"]} ({compliance["score"]}/100)</div>',
-                unsafe_allow_html=True,
-            )
+        consistency = guardrails.check_ruling_consistency(ruling, last["message"])
+        st.markdown("**Ruling consistency check:**")
+        cols_chk = st.columns(3)
+        for col_c, item in zip(cols_chk, consistency["checks"]):
+            icon = "✓" if item["passed"] else "✗"
+            color = "#166534" if item["passed"] else "#92400e"
+            col_c.markdown(f"<span style='color:{color}; font-weight:600;'>{icon} {item['name']}</span><br><span style='font-size:0.75rem; color:#64748b;'>{item['detail']}</span>", unsafe_allow_html=True)
 
     if already_saved:
         st.success("Retained in Hindsight.")
         st.caption("✓ Ruling saved to memory for this dispute.")
 
-        # Show Automated Roster Sync Status
+        # Show Simulated Roster Payload
         roster_evt = roster_sync.generate_roster_payload(last["message"], ruling)
         st.markdown(
-            f'<div class="pill-blue">📡 Roster Synced to Scheduling API (Event #{roster_evt["event_id"]}) · Dispatched shift adjustment payload to 7shifts & Toast POS.</div>',
+            f'<div class="pill-blue">📋 Simulated roster payload (no external system contacted) · Status: SIMULATED (Event #{roster_evt["event_id"]})</div>',
             unsafe_allow_html=True,
         )
-        with st.expander(f"🔍 View Dispatch Payload for 7shifts & POS (JSON)", expanded=False):
+        with st.expander("🔍 View Simulated Roster Payload (JSON)", expanded=False):
             st.json(roster_evt)
 
         if is_novel or st.session_state.learning_step in (1, 2):
@@ -475,7 +478,8 @@ if last:
             st.error("Cannot save an empty ruling.")
         else:
             try:
-                agent.record_ruling(last["message"], ruling.strip())
+                write_bank = last.get("bank_id", memory.get_bank_id())
+                agent.record_ruling(last["message"], ruling.strip(), bank_id=write_bank)
                 st.session_state.saved += 1
                 st.session_state.saved_dispute = last["message"]
                 st.session_state.setdefault("learned_precedents", []).append({
@@ -483,7 +487,7 @@ if last:
                     "ruling": ruling.strip(),
                     "when": agent.get_demo_today_str(),
                 })
-                # Register policy into versioned registry
+                # Register policy into index
                 st.session_state.policy_registry.register_or_supersede(ruling.strip(), last["message"], agent.get_demo_today_str())
                 if st.session_state.learning_step == 1:
                     st.session_state.learning_step = 2
