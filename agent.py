@@ -96,6 +96,48 @@ def get_demo_today_str() -> str:
     return get_demo_today().strftime("%Y-%m-%d")
 
 
+def calculate_window_status(cover_date_str: str, window_days: int = 30, today: datetime | None = None) -> dict:
+    """Deterministic calendar math calculation for shift return windows."""
+    today_dt = today or get_demo_today()
+    try:
+        cov_dt = datetime.strptime(cover_date_str, "%Y-%m-%d")
+    except Exception:
+        return {"is_open": False, "days_remaining": 0, "end_date": "", "status_str": "UNKNOWN"}
+
+    from datetime import timedelta
+    end_dt = cov_dt + timedelta(days=window_days)
+    delta_days = (end_dt.date() - today_dt.date()).days
+    end_date_str = end_dt.strftime("%Y-%m-%d")
+
+    if delta_days > 1:
+        status_str = f"OPEN - Closes in {delta_days} days ({end_date_str})"
+        is_open = True
+    elif delta_days == 1:
+        status_str = f"OPEN - Closes tomorrow ({end_date_str})"
+        is_open = True
+    elif delta_days == 0:
+        status_str = f"OPEN - Closes today ({end_date_str})"
+        is_open = True
+    else:
+        status_str = f"EXPIRED - {abs(delta_days)} days overdue (ended {end_date_str}); debt preserved"
+        is_open = False
+
+    return {
+        "is_open": is_open,
+        "days_remaining": delta_days,
+        "end_date": end_date_str,
+        "status_str": status_str,
+    }
+
+
+def get_recommended_cap(message: str) -> int:
+    """Dynamically scales recall capacity based on scenario complexity."""
+    count = sum(1 for name in EMPLOYEES if name.lower() in message.lower())
+    if count >= 3:
+        return max(RECALL_CAP, 16)
+    return RECALL_CAP
+
+
 def _recall_queries(message: str) -> list[str]:
     # Vector recall query string limited to 500 chars to handle very long inputs cleanly
     msg_query = message[:500] if len(message) > 500 else message

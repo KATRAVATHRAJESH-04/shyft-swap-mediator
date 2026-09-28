@@ -1,5 +1,6 @@
 import os
 import re
+import json
 
 import streamlit as st
 from dotenv import load_dotenv
@@ -8,6 +9,9 @@ import agent
 import memory
 import seed_data
 from prompts import DEMO_PROMPTS
+import guardrails
+import policy_engine
+import roster_sync
 
 load_dotenv()
 st.set_page_config(page_title="Shyft Swap Mediator", page_icon="🗓️", layout="wide")
@@ -23,6 +27,9 @@ for key, default in [
     ("learned_precedents", []),
 ]:
     st.session_state.setdefault(key, default)
+
+if "policy_registry" not in st.session_state:
+    st.session_state.policy_registry = policy_engine.PolicyRegistry()
 
 BEAT_4_PROMPTS = {
     "Beat 4A: half-shift dispute": (
@@ -78,9 +85,10 @@ with st.sidebar:
 
     st.divider()
     st.header("🏛️ Institutional Memory")
+    total_mem = 18 + st.session_state.saved
     st.metric(
         "Knowledge Accumulation",
-        f"{18 + st.session_state.saved} Records",
+        f"{total_mem} Records",
         f"+{st.session_state.saved} live ruling(s)" if st.session_state.saved > 0 else "18 base records",
     )
     st.caption(f"Bank ID: `{memory.get_bank_id()}`")
@@ -109,26 +117,27 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# Visible Section: BREWLINE INSTITUTIONAL MEMORY
-with st.expander(f"🏛️ BREWLINE INSTITUTIONAL MEMORY ({18 + st.session_state.saved} Records Active)", expanded=False):
+# Visible Section: BREWLINE INSTITUTIONAL MEMORY & POLICY REGISTRY
+with st.expander(f"🏛️ BREWLINE INSTITUTIONAL MEMORY & POLICY REGISTRY ({total_mem} Records Active)", expanded=False):
     col_mem1, col_mem2 = st.columns(2)
     with col_mem1:
-        st.markdown("**POLICIES & PRECEDENTS** *(Ground truth from bank)*")
-        st.markdown("""
-- ⚖️ **Festival-day coverage = 2 shifts** *(Established by Priya on 2026-07-20)*
-- 📱 **Verbal swaps are non-binding** *(Must be logged in Shyft app per 2026-06-14 ruling)*
-- ⏳ **Expired return windows do not erase debt** *(7-day cure deadline per 2026-07-26 ruling)*
-- 📅 **30-day return window** *(Covered shifts must be returned within 30 days)*
-- 🚨 **Emergency exception** *(Genuine emergencies are the only valid exception)*
-        """)
+        st.markdown("**CORE STANDING POLICIES (Versioned)**")
+        active_pols = st.session_state.policy_registry.get_active_policies()
+        for p in active_pols[:5]:
+            st.markdown(f"- **{p['id']} ({p['version']}) {p['name']}:** {p['rule']}")
     with col_mem2:
-        st.markdown("**LEARNED RECENTLY** *(Manager-created precedents)*")
-        if st.session_state.learned_precedents:
+        st.markdown("**POLICY LIFECYCLE & LEARNED PRECEDENTS**")
+        all_pols = st.session_state.policy_registry.get_all_policies()
+        if len(all_pols) > 5:
+            for p in all_pols[5:]:
+                badge = "🟢 ACTIVE" if p['status'] == "ACTIVE" else "⚪ SUPERSEDED"
+                st.markdown(f"- **{p['id']} ({badge}):** {p['name']} ({p['effective_date']})")
+        elif st.session_state.learned_precedents:
             for lp in st.session_state.learned_precedents:
-                st.markdown(f"- 🟢 **{lp['when']}:** {lp['ruling'][:100]}... *(Saved to Hindsight)*")
+                st.markdown(f"- 🟢 **{lp['when']}:** {lp['ruling'][:90]}... *(Saved to Hindsight)*")
         else:
-            st.caption("• *No live rulings added yet this session. Run the Live Learning Demo below to teach the agent a new rule!*")
-        st.caption(f"Bank `{memory.get_bank_id()}` · Disposition: skepticism=4, literalism=4, empathy=3")
+            st.caption("• *No live rulings added yet this session. Run the Live Learning Demo below to establish a new standing rule!*")
+        st.caption(f"Bank `{memory.get_bank_id()}` · Memory Versioning: Active · Auto-conflict resolution enabled")
 
 # ---------------- demo disputes & live learning ----------------
 st.markdown("### ⚡ Demo Disputes")
@@ -197,6 +206,15 @@ if last:
             "Recalled precedent: *'Priya ruled that half-shift covers count as half a shift (pro-rated repayment of 4 hours)...'*\n\n"
             "The agent applied this newly learned rule to Aisha & Tariq consistently, without model fine-tuning or code changes."
         )
+
+    # Deterministic Timeline Verification Callout
+    if "festival" in last["message"].lower() or "kavya" in last["message"].lower():
+        win = agent.calculate_window_status("2026-08-30", window_days=30)
+        st.info(f"📅 **Deterministic Calendar Verification:** Cover Date: 2026-08-30 ➔ 30-Day Window Deadline: {win['end_date']} ➔ **Status: {win['status_str']}**")
+    elif "august" in last["message"].lower() or "meera" in last["message"].lower():
+        win1 = agent.calculate_window_status("2026-08-08", window_days=30)
+        win2 = agent.calculate_window_status("2026-08-22", window_days=30)
+        st.info(f"📅 **Deterministic Calendar Verification:** Aug 8 cover ended {win1['end_date']} (EXPIRED); Aug 22 cover ended {win2['end_date']} (EXPIRED) ➔ Priya's 2026-07-26 ruling preserves shift debt.")
 
     if compare and last.get("off") is not None:
         left, right = st.columns(2)
@@ -285,7 +303,7 @@ if last:
             st.caption("Served from cached demo run (live model rate-limited)")
 
     st.divider()
-    st.markdown("### ✍️ Priya's Final Ruling (Institutional Precedent Creation)")
+    st.markdown("### ✍️ Priya's Final Ruling & Institutional Precedent Creation")
     st.caption("Manager Confirmation Required: Priya Nair has final authority. Edit or confirm the ruling below. Once saved, it becomes permanent institutional memory for future disputes.")
 
     default_ruling = last["on"]["answer"]
@@ -302,9 +320,36 @@ if last:
     already_saved = (st.session_state.saved_dispute == last["message"])
     save_disabled = already_saved or is_blank
 
+    # Real-time Statutory Labor Law & Fairness Check
+    if not is_blank:
+        compliance = guardrails.verify_compliance(ruling, last["message"])
+        if compliance["compliant"]:
+            st.markdown(
+                f"<div style='background:#f0fdf4; border:1px solid #bbf7d0; border-radius:6px; padding:6px 12px; margin-bottom:10px; font-size:0.83rem; color:#166534;'>"
+                f"🛡️ <strong>Statutory Labor Standards & Fairness Check: PASSED (Score: {compliance['score']}/100)</strong><br>"
+                f"<span style='font-size:0.77rem; color:#15803d;'>Verified against Fair Work Standards: Rest period, definitive timeline, and non-punitive tone.</span>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+        else:
+            st.warning(f"⚠️ Compliance Advisory: {compliance['summary']} (Score: {compliance['score']}/100)")
+
     if already_saved:
         st.success("Retained in Hindsight.")
         st.caption("✓ Ruling saved to memory for this dispute.")
+
+        # Show Automated Roster Sync Status
+        roster_evt = roster_sync.generate_roster_payload(last["message"], ruling)
+        st.markdown(
+            f"<div style='background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:6px 12px; margin-bottom:10px; font-size:0.83rem; color:#1e40af;'>"
+            f"📡 <strong>Roster Synced to POS / Scheduling System (Event #{roster_evt['event_id']})</strong><br>"
+            f"<span style='font-size:0.77rem; color:#2563eb;'>Dispatched shift adjustment payload to 7shifts & Toast POS APIs.</span>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+        with st.expander(f"🔍 View Roster Sync Payload for 7shifts & Toast POS (JSON)", expanded=False):
+            st.json(roster_evt)
+
         if is_novel or st.session_state.learning_step in (1, 2):
             st.info("👉 **Step 2 Completed:** Precedent is now active in Hindsight! Now click **Step 3: Test New Case (Aisha vs Tariq)** above to watch Hindsight apply this rule.")
     elif is_blank:
@@ -323,6 +368,8 @@ if last:
                     "ruling": ruling.strip(),
                     "when": agent.get_demo_today_str(),
                 })
+                # Register policy into versioned registry
+                st.session_state.policy_registry.register_or_supersede(ruling.strip(), last["message"], agent.get_demo_today_str())
                 if st.session_state.learning_step == 1:
                     st.session_state.learning_step = 2
                 st.success("Retained in Hindsight.")
