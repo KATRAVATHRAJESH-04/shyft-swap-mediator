@@ -67,6 +67,23 @@ def safe_respond_compare(prompt: str) -> tuple[dict, dict]:
                 raise
 
 
+BEAT_4_PROMPTS = {
+    "Beat 4A: half-shift dispute": (
+        "Sana covered 4 hours of Rohan's 8-hour shift yesterday. Sana says Rohan owes her a full shift back "
+        "because she gave up her evening; Rohan says he only owes 4 hours or half a shift. What's the policy?"
+    ),
+    "Beat 4B: half-shift precedent": (
+        "Aisha covered 4 hours of Tariq's shift on Thursday. Aisha says Tariq owes her a full shift back, "
+        "but Tariq says he only owes half a shift. What's the ruling?"
+    ),
+}
+
+BEAT_4_RULING = (
+    "Priya ruled that half-shift covers count as half a shift (pro-rated repayment of 4 hours), "
+    "establishing this as a standing policy for all staff."
+)
+
+
 def build_cache() -> None:
     print("================================================================================")
     print("BUILDING DEMO CACHE FOR GROQ RATE-LIMIT FALLBACK")
@@ -81,7 +98,9 @@ def build_cache() -> None:
         except Exception:
             cache = {}
 
-    for beat_name, prompt in DEMO_PROMPTS.items():
+    all_prompts = dict(DEMO_PROMPTS)
+
+    for beat_name, prompt in all_prompts.items():
         norm_key = normalize_query(prompt)
         print(f">>> Running {beat_name} ...")
         
@@ -107,13 +126,79 @@ def build_cache() -> None:
             },
         }
 
-        # Also store under normalized beat name for convenience
         norm_beat = normalize_query(beat_name)
         if norm_beat not in cache:
             cache[norm_beat] = cache[norm_key]
 
         print(f"  [OK] OFF words: {len(res_off['answer'].split())} | ON words: {len(res_on['answer'].split())}")
         time.sleep(2)
+
+    # --- Beat 4: Learning Live (Dispute A -> Confirm Ruling -> Dispute B) ---
+    print("\n>>> Running Beat 4: Learning live (isolated test bank) ...")
+    
+    # Beat 4A: Half-shift dispute (clean bank, no precedent)
+    p4a = BEAT_4_PROMPTS["Beat 4A: half-shift dispute"]
+    norm_4a = normalize_query(p4a)
+    if norm_4a not in cache or "off" not in cache[norm_4a] or "on" not in cache[norm_4a]:
+        print("  Processing Beat 4A (initial half-shift inquiry)...")
+        off_4a, on_4a = safe_respond_compare(p4a)
+        cache[norm_4a] = {
+            "beat": "Beat 4A: half-shift dispute",
+            "query": p4a,
+            "off": {
+                "answer": off_4a["answer"],
+                "memories": off_4a.get("memories", []),
+                "model": off_4a.get("model", os.getenv("FORCE_MODEL")),
+            },
+            "on": {
+                "answer": on_4a["answer"],
+                "memories": on_4a.get("memories", []),
+                "model": on_4a.get("model", os.getenv("FORCE_MODEL")),
+            },
+        }
+        cache[normalize_query("Beat 4A: half-shift dispute")] = cache[norm_4a]
+        print(f"  [OK] Beat 4A OFF: {len(off_4a['answer'].split())}w | ON: {len(on_4a['answer'].split())}w")
+        time.sleep(2)
+    else:
+        print("  [cached] Beat 4A already built.")
+
+    # Beat 4B: Half-shift precedent (uses isolated bank 'learning-test' with confirmed ruling)
+    p4b = BEAT_4_PROMPTS["Beat 4B: half-shift precedent"]
+    norm_4b = normalize_query(p4b)
+    if norm_4b not in cache or "off" not in cache[norm_4b] or "on" not in cache[norm_4b]:
+        print("  Processing Beat 4B (applying learned precedent in isolated bank)...")
+        orig_bank = os.environ.get("HINDSIGHT_BANK_ID", "brewline-demo-2")
+        os.environ["HINDSIGHT_BANK_ID"] = "learning-test"
+        try:
+            memory.ensure_bank()
+            # Retain Priya's confirmed ruling into isolated test bank
+            memory.retain(
+                f"Dispute on 2026-09-28: {p4a} Priya's ruling: {BEAT_4_RULING}",
+                context="dispute ruling",
+                when="2026-09-28",
+            )
+            time.sleep(1)
+            off_4b, on_4b = safe_respond_compare(p4b)
+            cache[norm_4b] = {
+                "beat": "Beat 4B: half-shift precedent",
+                "query": p4b,
+                "off": {
+                    "answer": off_4b["answer"],
+                    "memories": off_4b.get("memories", []),
+                    "model": off_4b.get("model", os.getenv("FORCE_MODEL")),
+                },
+                "on": {
+                    "answer": on_4b["answer"],
+                    "memories": on_4b.get("memories", []),
+                    "model": on_4b.get("model", os.getenv("FORCE_MODEL")),
+                },
+            }
+            cache[normalize_query("Beat 4B: half-shift precedent")] = cache[norm_4b]
+            print(f"  [OK] Beat 4B OFF: {len(off_4b['answer'].split())}w | ON: {len(on_4b['answer'].split())}w")
+        finally:
+            os.environ["HINDSIGHT_BANK_ID"] = orig_bank
+    else:
+        print("  [cached] Beat 4B already built.")
 
     with open(CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(cache, f, indent=2)

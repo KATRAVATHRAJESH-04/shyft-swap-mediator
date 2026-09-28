@@ -128,3 +128,35 @@ streamlit run app.py          # click "Load Brewline history into Hindsight" onc
     1. Rules the verbal claim non-binding per Priya's 2026-06-14 precedent.
     2. Synthesizes Arjun's dispute history into a **Pattern line** citing his June 14 verbal claim, July 26 expired window debt, and overdue August covers.
     3. Recommends requiring written confirmation in the Shyft app for any future swaps involving Arjun.
+
+### Beat 4: Learning Live (Live Policy Adaptation)
+
+Demonstrates how Hindsight memory learns and adapts in real time to new dispute types not covered by the original 18 seeded records.
+
+> [!NOTE]
+> **Bank Isolation**: When practicing or demonstrating Beat 4, you can point to an isolated bank (e.g. set `HINDSIGHT_BANK_ID=learning-test` in `.env`) so the primary `brewline-demo-2` benchmark bank remains unaffected.
+
+#### Step 1: Dispute A (Novel Case — No Prior Precedent)
+- **Enter Query**:
+  ```text
+  Sana covered 4 hours of Rohan's 8-hour shift yesterday. Sana says Rohan owes her a full shift back because she gave up her evening; Rohan says he only owes 4 hours or half a shift. What's the policy?
+  ```
+- **Expected Outcome**:
+  - **With Hindsight Memory**: Honestly reports that no policy or precedent exists for half-shift covers in Brewline Café's records. Advises manager Priya to set a clear precedent on whether partial-shift covers require full or pro-rated repayment.
+
+#### Step 2: Confirm Manager Ruling
+- In the Streamlit UI, confirm or enter Priya's ruling in the **Confirm and save ruling to memory** box:
+  ```text
+  Priya ruled that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.
+  ```
+- Click **Confirm and save ruling to memory**. Hindsight retains this new rule with today's date (`2026-09-28`).
+
+#### Step 3: Dispute B (New Dispute, Different Employees — Precedent Applied)
+- **Enter Query**:
+  ```text
+  Aisha covered 4 hours of Tariq's shift on Thursday. Aisha says Tariq owes her a full shift back, but Tariq says he only owes half a shift. What's the ruling?
+  ```
+- **Expected Outcome**:
+  - **Without Memory**: Declines to decide or asks for written agreements; has no awareness of half-shift rules.
+  - **With Hindsight Memory**: Recalls Priya's newly confirmed ruling from Step 2. Decides that Tariq owes Aisha half a shift (4 hours pro-rated repayment), proving that Hindsight has learned the new policy live without code changes or fine-tuning.
+

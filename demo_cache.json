@@ -424,5 +424,105 @@
       ],
       "model": "qwen/qwen3.8-27b"
     }
+  },
+  "sana covered 4 hours of rohans 8hour shift yesterday sana says rohan owes her a full shift back because she gave up her evening rohan says he only owes 4 hours or half a shift whats the policy": {
+    "beat": "Beat 4A: half-shift dispute",
+    "query": "Sana covered 4 hours of Rohan's 8-hour shift yesterday. Sana says Rohan owes her a full shift back because she gave up her evening; Rohan says he only owes 4 hours or half a shift. What's the policy?",
+    "off": {
+      "answer": "1. Recommendation\nI cannot determine what the policy is. Priya must check the store handbook or issue a policy ruling regarding partial-shift coverage.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of partial shift policy is required.\n\n3. What to tell the employees\nPlease wait until Priya establishes the policy for partial-shift covers. I cannot determine who is right without documented rules.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nI have no record of a policy or precedent for partial-shift covers. Priya must decide whether covering 4 hours of an 8-hour shift requires returning a full shift or half a shift.\n\n**Evidence**\n- Standing policy requires covered shifts to be returned within 30 days of the cover date.\n- Festival-day covers count as two regular shifts, but no policy exists for half-shift covers.\n- No prior disputes or rulings on record address partial-shift coverage.\n\n**What to tell the employees**\nThere is currently no established policy for half-shift covers in the store records. Manager Priya will review the dispute and issue a formal ruling.",
+      "memories": [
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval.",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that a festival-day shift swap counts as two regular shifts, establishing this as a standing policy for all staff.",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "beat 4a halfshift dispute": {
+    "beat": "Beat 4A: half-shift dispute",
+    "query": "Sana covered 4 hours of Rohan's 8-hour shift yesterday. Sana says Rohan owes her a full shift back because she gave up her evening; Rohan says he only owes 4 hours or half a shift. What's the policy?",
+    "off": {
+      "answer": "1. Recommendation\nI cannot determine what the policy is. Priya must check the store handbook or issue a policy ruling regarding partial-shift coverage.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of partial shift policy is required.\n\n3. What to tell the employees\nPlease wait until Priya establishes the policy for partial-shift covers. I cannot determine who is right without documented rules.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nI have no record of a policy or precedent for partial-shift covers. Priya must decide whether covering 4 hours of an 8-hour shift requires returning a full shift or half a shift.\n\n**Evidence**\n- Standing policy requires covered shifts to be returned within 30 days of the cover date.\n- Festival-day covers count as two regular shifts, but no policy exists for half-shift covers.\n- No prior disputes or rulings on record address partial-shift coverage.\n\n**What to tell the employees**\nThere is currently no established policy for half-shift covers in the store records. Manager Priya will review the dispute and issue a formal ruling.",
+      "memories": [
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval.",
+          "type": "world"
+        },
+        {
+          "text": "Priya ruled that a festival-day shift swap counts as two regular shifts, establishing this as a standing policy for all staff.",
+          "type": "world"
+        },
+        {
+          "text": "Genuine emergencies are the only exception to the Brewline Cafe shift swap policy.",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "aisha covered 4 hours of tariqs shift on thursday aisha says tariq owes her a full shift back but tariq says he only owes half a shift whats the ruling": {
+    "beat": "Beat 4B: half-shift precedent",
+    "query": "Aisha covered 4 hours of Tariq's shift on Thursday. Aisha says Tariq owes her a full shift back, but Tariq says he only owes half a shift. What's the ruling?",
+    "off": {
+      "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written confirmation of the shift swap terms agreed upon by Aisha and Tariq.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap agreement is required.\n\n3. What to tell the employees\nPlease provide written documentation of what you agreed upon for this cover. Without it, I cannot rule on shift repayment.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nTariq is right. Tariq owes Aisha half a shift (4 hours of shift coverage). Tariq must work a half shift to repay Aisha.\n\n**Evidence**\n- Priya ruled on 2026-09-28 that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.\n- Aisha covered 4 hours of Tariq's shift.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n\n**What to tell the employees**\nTariq, you owe Aisha half a shift (4 hours) back, in accordance with Priya's standing policy that partial-shift covers are repaid pro-rata.",
+      "memories": [
+        {
+          "text": "Dispute on 2026-09-28: Sana covered 4 hours of Rohan's 8-hour shift yesterday. Sana says Rohan owes her a full shift back; Rohan says he only owes 4 hours. Priya's ruling: Priya ruled that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.",
+          "type": "dispute ruling"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval.",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
+  },
+  "beat 4b halfshift precedent": {
+    "beat": "Beat 4B: half-shift precedent",
+    "query": "Aisha covered 4 hours of Tariq's shift on Thursday. Aisha says Tariq owes her a full shift back, but Tariq says he only owes half a shift. What's the ruling?",
+    "off": {
+      "answer": "1. Recommendation\nI cannot determine who is right. Priya must obtain written confirmation of the shift swap terms agreed upon by Aisha and Tariq.\n\n2. Evidence\n- No records are available for this dispute.\n- Documentation of the specific swap agreement is required.\n\n3. What to tell the employees\nPlease provide written documentation of what you agreed upon for this cover. Without it, I cannot rule on shift repayment.",
+      "memories": [],
+      "model": "qwen/qwen3.8-27b"
+    },
+    "on": {
+      "answer": "**Recommendation**\nTariq is right. Tariq owes Aisha half a shift (4 hours of shift coverage). Tariq must work a half shift to repay Aisha.\n\n**Evidence**\n- Priya ruled on 2026-09-28 that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.\n- Aisha covered 4 hours of Tariq's shift.\n- Policy requires covered shifts to be returned within 30 days of the cover date.\n\n**What to tell the employees**\nTariq, you owe Aisha half a shift (4 hours) back, in accordance with Priya's standing policy that partial-shift covers are repaid pro-rata.",
+      "memories": [
+        {
+          "text": "Dispute on 2026-09-28: Sana covered 4 hours of Rohan's 8-hour shift yesterday. Sana says Rohan owes her a full shift back; Rohan says he only owes 4 hours. Priya's ruling: Priya ruled that half-shift covers count as half a shift (pro-rated repayment of 4 hours), establishing this as a standing policy for all staff.",
+          "type": "dispute ruling"
+        },
+        {
+          "text": "Brewline Cafe policy requires a covered shift to be returned within 30 days of the cover date, unless Priya specifies a different date during swap approval.",
+          "type": "world"
+        }
+      ],
+      "model": "qwen/qwen3.8-27b"
+    }
   }
 }
