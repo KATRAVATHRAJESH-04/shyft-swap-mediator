@@ -34,6 +34,46 @@ streamlit run app.py          # click "Load Brewline history into Hindsight" onc
 
 ---
 
+## How Hindsight Memory is Used
+
+### 1. What Gets Retained
+- **Bank with a Mission (`memory.ensure_bank()` in `memory.py`)**:
+  Hindsight creates and configures a bank with an explicit mission:
+  > *"I am the memory of Priya Nair, shift manager at Brewline Cafe. I keep track of shift-swap agreements, who covered whose shift, disputes between employees, Priya's rulings, and standing policy exceptions, so future disputes can be settled from the written record and consistently."*
+- **18 Seeded Historical Records (`seed_data.py`)**:
+  Pre-loaded into the bank with realistic timestamps (`context="seed"`, `when="YYYY-MM-DD"`). Covers café policies (30-day return window, emergency exceptions, standing app-logging mandate), past disputes, Priya's prior rulings (verbal swap non-binding, festival-day shift = 2 shifts, expired windows do not cancel debt), and covers (Meera covering Arjun in August).
+- **Interactive Rulings (`agent.record_ruling()` in `agent.py`)**:
+  When Priya confirms or edits a verdict in the Streamlit UI, the ruling is retained back to Hindsight with the current demo date (`DEMO_TODAY`):
+  ```python
+  memory.retain(
+      f"Dispute on {today:%Y-%m-%d}: {message} Priya's ruling: {ruling}",
+      context="dispute ruling",
+      when=today,
+  )
+  ```
+  This closes the learning loop: any new ruling immediately becomes part of institutional memory for all subsequent dispute resolutions.
+
+### 2. What Gets Recalled
+- **Multi-Query Routing (`agent._recall_queries()` in `agent.py`)**:
+  Rather than issuing a single naive query, `agent.gather_memories()` dispatches targeted semantic queries for each dispute:
+  1. The dispute text itself (`message[:500]`)
+  2. Standing policy: `"Brewline shift swap policy and standing exceptions"`
+  3. For every employee named in the dispute (`Arjun`, `Meera`, `Rohan`, `Kavya`, `Sana`):
+     - `"past disputes, swaps and Priya's rulings involving {name}"`
+     - `"unreturned or overdue swaps owed by {name}"`
+- **Deduplicated Merger & Strict Cap (`RECALL_CAP=14`)**:
+  Batches from all queries are round-robin interleaved and deduplicated, capped strictly at the top **14** memories (`RECALL_CAP`). This eliminates prompt bloat, conserves daily token quotas, and guarantees 100% recall of essential precedents across all beats (verified via `scripts/check_beats.py`).
+
+### 3. Memory OFF vs. ON (Before & After)
+
+| Dispute Beat | Without Memory (Vanilla LLM) | With Hindsight Memory |
+| :--- | :--- | :--- |
+| **Beat 1: Festival Shift Math**<br>*(Kavya vs. Rohan)* | **Declines to decide**: States no records exist to determine who is right, refuses to award 1 or 2 shifts, and asks the manager to obtain written agreement terms. | **Applies 2-for-1 precedent**: Recalls Priya's 2026-07-20 standing policy that festival-day coverage counts as **two shifts**. Accurately notes that the 30-day window ending on 2026-09-29 is **still open** and closes tomorrow relative to `DEMO_TODAY=2026-09-28`. |
+| **Beat 2: Expired Swap Window**<br>*(Meera vs. Arjun)* | **No historical context**: Has no record of the August covers or policy; cannot judge whether a 30-day expiration erases debt. | **Enforces debt precedent**: Recalls both August covers (Aug 8 and Aug 22 approved in the Shyft app) and Priya's 2026-07-26 ruling establishing that **expired windows do not cancel debt**; orders Arjun to return shifts within 7 days. |
+| **Beat 3: Spot the Pattern**<br>*(Arjun vs. Sana)* | **Isolated dispute**: Treats this as an unverified word-against-word dispute; asks both parties to provide documentation. | **Synthesizes pattern & fixes root cause**: Recalls Priya's 2026-06-14 ruling that unlogged verbal swaps are non-binding. Synthesizes Arjun's 3 prior disputes into a single **Pattern bullet** (June 14 verbal claim, July 26 expired window debt, overdue August covers), and recommends requiring written app confirmation for all future swaps with Arjun. |
+
+---
+
 ## Configuration & Environment Variables
 
 | Variable | Default | Purpose |
